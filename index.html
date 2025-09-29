@@ -1,66 +1,166 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Liquid Glass Store</title>
-  <!-- Bootstrap -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Liquid Glass Shop - Demo</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+  <div class="bg-aurora" aria-hidden="true"></div>
+
   <!-- Header -->
-  <div id="header"></div>
+  <header class="site-header fixed-top">
+    <div class="container-lg d-flex align-items-center justify-content-between py-2">
+      <a class="d-flex align-items-center gap-2" href="#">
+        <div class="glass p-2 d-flex align-items-center" style="gap:.65rem;border-radius:14px">
+          <img src="https://placehold.co/48x40/0ff/000?text=LG" alt="logo" class="logo">
+          <strong style="color:white">LiquidGlass</strong>
+        </div>
+      </a>
 
-  <!-- Hero -->
-  <section id="home" class="hero-section d-flex align-items-center justify-content-center text-center">
-    <div class="glass p-5">
-      <h1 class="hero-title">Khám Phá Liquid Glass</h1>
-      <p class="hero-subtitle">Giao diện bán hàng với hiệu ứng thủy tinh lỏng</p>
-      <a href="#products" class="btn btn-gradient mt-3">Mua Ngay</a>
+      <nav class="d-none d-md-flex align-items-center gap-3 nav-animated">
+        <a class="nav-pill text-decoration-none text-white" href="#">Home</a>
+        <a class="nav-pill text-decoration-none text-white" href="#featured-products">Shop</a>
+        <a class="nav-pill text-decoration-none text-white" href="#">About</a>
+        <a class="nav-pill text-decoration-none text-white" href="#">Contact</a>
+      </nav>
+
+      <div class="d-flex align-items-center gap-3">
+  <!-- Giỏ hàng -->
+  <div class="glass p-2 d-flex align-items-center nav-pill icon-glass">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+         fill="none" stroke="white" stroke-width="1.5" 
+         class="bi bi-cart2" viewBox="0 0 16 16">
+      <path d="M0 1.5A.5.5 0 0 1 .5 1h1
+               a.5.5 0 0 1 .485.379L2.89 5H14.5
+               a.5.5 0 0 1 .49.598l-1.5 7
+               A.5.5 0 0 1 13 13H4
+               a.5.5 0 0 1-.49-.402L1.61 2H.5
+               a.5.5 0 0 1-.5-.5z"/>
+    </svg>
+  </div>
+
+  <!-- Người dùng -->
+  <div class="glass p-2 d-flex align-items-center nav-pill icon-glass">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+         fill="none" stroke="white" stroke-width="1.5" 
+         class="bi bi-person" viewBox="0 0 16 16">
+      <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+      <path d="M2 14s1-4 6-4 6 4 6 4H2z"/>
+    </svg>
+  </div>
+</div>
+
+</div>
+
     </div>
-  </section>
+  </header>
 
-  <!-- Products -->
-  <section id="products" class="container py-5">
-    <h2 class="text-center text-white mb-4">Sản Phẩm</h2>
-    <div class="row g-4">
-      <div class="col-md-4">
-        <div class="glass p-3 text-center product-card">
-          <img src="https://placehold.co/300x200" class="img-fluid rounded mb-3" alt="Laptop">
-          <h5 class="text-white">Laptop Gaming</h5>
-          <p class="text-glass-light">15.999.000đ</p>
-          <button class="btn btn-glass">Thêm vào giỏ</button>
+  <!-- Main -->
+  <main class="container-lg mt-5 pt-5">
+    <section class="hero">
+      <div class="glass hero-card row">
+        <div class="col-lg-6">
+          <h1>Thiết kế theo phong cách <span class="gradient-text">Liquid Glass</span></h1>
+          <p class="lead">Giao diện mềm mượt, lớp kính mờ, bóng bẩy với hiệu ứng blur — phù hợp cho website sản phẩm, portfolio và cửa hàng trực tuyến.</p>
+          <div class="d-flex gap-2">
+            <a class="btn btn-accent btn-lg" href="#featured-products">Mua ngay</a>
+            <a class="btn btn-outline-light btn-lg" href="#">Xem bộ sưu tập</a>
+          </div>
+        </div>
+        <div class="col-lg-6 d-none d-lg-flex justify-content-center">
+          <div class="glass p-3 product-animated" style="width:320px;border-radius:18px">
+            <img src="https://placehold.co/300x220/png?text=Hero+Product" class="img-fluid" alt="product">
+            <div class="card-detail mt-3">
+              <div>
+                <div style="font-weight:700">Limited Edition</div>
+                <div style="opacity:.8">Running Shoes</div>
+              </div>
+              <div style="font-weight:800">$99</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="glass p-3 text-center product-card">
-          <img src="https://placehold.co/300x200" class="img-fluid rounded mb-3" alt="Phone">
-          <h5 class="text-white">Smartphone</h5>
-          <p class="text-glass-light">12.999.000đ</p>
-          <button class="btn btn-glass">Thêm vào giỏ</button>
+    </section>
+
+    <section id="featured-products" class="py-4">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h4 mb-0">Sản phẩm nổi bật</h2>
+        <a class="text-white-50" href="#">Xem tất cả</a>
+      </div>
+
+      <div class="row g-3">
+        <!-- Product cards -->
+        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+          <div class="glass product-card product-animated p-3">
+            <img src="https://placehold.co/400x300/png?text=Item+1" alt="item" class="product-image">
+            <div class="card-detail">
+              <div>
+                <div style="font-weight:700">Running shoes</div>
+                <div style="opacity:.7;font-size:.9rem">Men &amp; Women</div>
+              </div>
+              <div style="font-weight:800">$99</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+          <div class="glass product-card product-animated p-3">
+            <img src="https://placehold.co/400x300/png?text=Item+2" alt="item" class="product-image">
+            <div class="card-detail">
+              <div>
+                <div style="font-weight:700">Sneakers</div>
+                <div style="opacity:.7;font-size:.9rem">Casual</div>
+              </div>
+              <div style="font-weight:800">$79</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+          <div class="glass product-card product-animated p-3">
+            <img src="https://placehold.co/400x300/png?text=Item+3" alt="item" class="product-image">
+            <div class="card-detail">
+              <div>
+                <div style="font-weight:700">Sport Shoes</div>
+                <div style="opacity:.7;font-size:.9rem">Performance</div>
+              </div>
+              <div style="font-weight:800">$129</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+          <div class="glass product-card product-animated p-3">
+            <img src="https://placehold.co/400x300/png?text=Item+4" alt="item" class="product-image">
+            <div class="card-detail">
+              <div>
+                <div style="font-weight:700">Classic Leather</div>
+                <div style="opacity:.7;font-size:.9rem">Premium</div>
+              </div>
+              <div style="font-weight:800">$149</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="glass p-3 text-center product-card">
-          <img src="https://placehold.co/300x200" class="img-fluid rounded mb-3" alt="Headphones">
-          <h5 class="text-white">Tai Nghe</h5>
-          <p class="text-glass-light">2.499.000đ</p>
-          <button class="btn btn-glass">Thêm vào giỏ</button>
-        </div>
+    </section>
+  </main>
+<br>
+    <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container-lg d-flex justify-content-between align-items-center">
+      <div>
+        <strong>LiquidGlass Shop</strong>
+        <div style="opacity:.7;font-size:.9rem">© Bản quyền 2025</div>
+      </div>
+      <div>
+        <a class="text-white-50 me-3" href="#">Privacy</a>
+        <a class="text-white-50" href="#">Contact</a>
       </div>
     </div>
-  </section>
-
-  <!-- Footer -->
-  <div id="footer"></div>
-
-  <!-- Bootstrap JS -->
+  </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Custom JS -->
-  <script src="js/main.js"></script>
 </body>
 </html>
