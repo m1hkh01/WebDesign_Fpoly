@@ -9,13 +9,14 @@
   <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet">
 
   <!-- Styles -->
   <link href="style/neuglass.css" rel="stylesheet">
   <link href="style/style.css" rel="stylesheet">
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
   <!-- Favicon (Nike swoosh) -->
   <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,
@@ -28,23 +29,40 @@
 <body>
   <!-- Epic Neural Background -->
   <div class="neural-background"></div>
-  <div class="geometric-shapes"><div class="shape"></div><div class="shape"></div><div class="shape"></div></div>
-  <div class="neural-lines"><div class="neural-line"></div><div class="neural-line"></div></div>
+  <div class="geometric-shapes">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  <div class="neural-lines">
+    <div class="neural-line"></div>
+    <div class="neural-line"></div>
+  </div>
 
   <!-- Header -->
   <div id="header"></div>
 
-  <!-- Product Detail -->
-  <main class="product-detail-wrapper" style="margin-top: 100px">
-    <div id="product-detail" class="glass-card"></div>
-  </main>
+  <section class="related-products">
+    <div class="product-detail-wrapper">
+      <div id="product-detail" class="glass-card"></div>
+    </div>
+
+    <h2 class="related-title">Other Products</h2>
+
+    <div class="swiper related-swiper">
+      <div class="swiper-wrapper" id="related-container" style="margin-top: 10px;">
+        <!-- JS sẽ render sản phẩm -->
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <div id="footer"></div>
 
   <!-- Scripts -->
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="js/neuglass.js"></script>
-  <script src="js/gallery.js"></script> <!-- Circular Gallery -->
   <script src="js/app.js"></script>
   <script>
     async function loadHTML(id, file) {
@@ -55,4 +73,5 @@
     loadHTML("footer", "footer.html");
   </script>
 </body>
+
 </html>
