@@ -1,166 +1,264 @@
-<!doctype html>
-<html lang="vi">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Liquid Glass Shop - Demo</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="style/neuglass.css" rel="stylesheet">
+    <link href="style/style.css" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" 
+      href='data:image/svg+xml;utf8,
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200">
+  <circle cx="600" cy="600" r="600" fill="white"/>
+  <path d="M245.8075 717.62406c-29.79588-1.1837-54.1734-9.3368-73.23459-24.4796-3.63775-2.8928-12.30611-11.5663-15.21427-15.2245-7.72958-9.7193-12.98467-19.1785-16.48977-29.6734-10.7857-32.3061-5.23469-74.6989 15.87753-121.2243 18.0765-39.8316 45.96932-79.3366 94.63252-134.0508 7.16836-8.0511 28.51526-31.5969 28.65302-31.5969.051 0-1.11225 2.0153-2.57652 4.4694-12.65304 21.1938-23.47957 46.158-29.37751 67.7703-9.47448 34.6785-8.33163 64.4387 3.34693 87.5151 8.05611 15.898 21.86731 29.6684 37.3979 37.2806 27.18874 13.3214 66.9948 14.4235 115.60699 3.2245 3.34694-.7755 169.19363-44.801 368.55048-97.8366 199.35686-53.0408 362.49439-96.4029 362.51989-96.3672.056.046-463.16259 198.2599-703.62654 301.0914-38.08158 16.2806-48.26521 20.3928-66.16827 26.6785-45.76525 16.0714-86.76008 23.7398-119.89779 22.4235z" fill="black"/>
+</svg>'>
+
+
+    <!-- TemplateMo 597 Neural Glass https://templatemo.com/tm-597-neural-glass -->
+    <style> </style>
 </head>
-<body>
-  <div class="bg-aurora" aria-hidden="true"></div>
 
-  <!-- Header -->
-  <header class="site-header fixed-top">
-    <div class="container-lg d-flex align-items-center justify-content-between py-2">
-      <a class="d-flex align-items-center gap-2" href="#">
-        <div class="glass p-2 d-flex align-items-center" style="gap:.65rem;border-radius:14px">
-          <img src="https://placehold.co/48x40/0ff/000?text=LG" alt="logo" class="logo">
-          <strong style="color:white">LiquidGlass</strong>
-        </div>
-      </a>
-
-      <nav class="d-none d-md-flex align-items-center gap-3 nav-animated">
-        <a class="nav-pill text-decoration-none text-white" href="#">Home</a>
-        <a class="nav-pill text-decoration-none text-white" href="#featured-products">Shop</a>
-        <a class="nav-pill text-decoration-none text-white" href="#">About</a>
-        <a class="nav-pill text-decoration-none text-white" href="#">Contact</a>
-      </nav>
-
-      <div class="d-flex align-items-center gap-3">
-  <!-- Giỏ hàng -->
-  <div class="glass p-2 d-flex align-items-center nav-pill icon-glass">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-         fill="none" stroke="white" stroke-width="1.5" 
-         class="bi bi-cart2" viewBox="0 0 16 16">
-      <path d="M0 1.5A.5.5 0 0 1 .5 1h1
-               a.5.5 0 0 1 .485.379L2.89 5H14.5
-               a.5.5 0 0 1 .49.598l-1.5 7
-               A.5.5 0 0 1 13 13H4
-               a.5.5 0 0 1-.49-.402L1.61 2H.5
-               a.5.5 0 0 1-.5-.5z"/>
-    </svg>
-  </div>
-
-  <!-- Người dùng -->
-  <div class="glass p-2 d-flex align-items-center nav-pill icon-glass">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-         fill="none" stroke="white" stroke-width="1.5" 
-         class="bi bi-person" viewBox="0 0 16 16">
-      <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-      <path d="M2 14s1-4 6-4 6 4 6 4H2z"/>
-    </svg>
-  </div>
-</div>
-
-</div>
-
+<body> <!-- Epic Neural Background -->
+    <div class="neural-background"></div> <!-- Floating Geometric Shapes -->
+    <div class="geometric-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div> <!-- Neural Network Lines -->
+    <div class="neural-lines">
+        <div class="neural-line"></div>
+        <div class="neural-line"></div>
+        <div class="neural-line"></div>
     </div>
-  </header>
-
-  <!-- Main -->
-  <main class="container-lg mt-5 pt-5">
-    <section class="hero">
-      <div class="glass hero-card row">
-        <div class="col-lg-6">
-          <h1>Thiết kế theo phong cách <span class="gradient-text">Liquid Glass</span></h1>
-          <p class="lead">Giao diện mềm mượt, lớp kính mờ, bóng bẩy với hiệu ứng blur — phù hợp cho website sản phẩm, portfolio và cửa hàng trực tuyến.</p>
-          <div class="d-flex gap-2">
-            <a class="btn btn-accent btn-lg" href="#featured-products">Mua ngay</a>
-            <a class="btn btn-outline-light btn-lg" href="#">Xem bộ sưu tập</a>
-          </div>
-        </div>
-        <div class="col-lg-6 d-none d-lg-flex justify-content-center">
-          <div class="glass p-3 product-animated" style="width:320px;border-radius:18px">
-            <img src="https://placehold.co/300x220/png?text=Hero+Product" class="img-fluid" alt="product">
-            <div class="card-detail mt-3">
-              <div>
-                <div style="font-weight:700">Limited Edition</div>
-                <div style="opacity:.8">Running Shoes</div>
-              </div>
-              <div style="font-weight:800">$99</div>
+    <!-- Header -->
+    <div id="header"></div>
+    <!-- Section 1: Hero -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-subtitle">Step Into Greatness</div>
+            <h1>NIKE COLLECTION</h1>
+            <div class="hero-description">
+                <p>Discover the latest Nike shoes designed for performance, comfort, and style. From running and
+                    training to
+                    lifestyle and iconic Air Jordan, elevate your game and express yourself with every step.</p>
             </div>
-          </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-number">+500</span>
+                    <span class="hero-stat-label">Models Available</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">#1</span>
+                    <span class="hero-stat-label">Global Sports Brand</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">24/7</span>
+                    <span class="hero-stat-label">Online Shopping</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">100%</span>
+                    <span class="hero-stat-label">Authentic Guarantee</span>
+                </div>
+            </div>
+            <div class="cta-buttons">
+                <a href="#hightlight" class="cta-button secondary" style="color: white;">View Highlights</a>
+            </div>
         </div>
-      </div>
+    </section>
+    <!-- Products Section -->
+    <section class="products" id="product">
+        <h2 class="section-title">NIKE PRODUCTS</h2>
+        <div class="container" id="product-container">
+            <!-- Card sẽ được JS thêm vào -->
+        </div>
     </section>
 
-    <section id="featured-products" class="py-4">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="h4 mb-0">Sản phẩm nổi bật</h2>
-        <a class="text-white-50" href="#">Xem tất cả</a>
-      </div>
-
-      <div class="row g-3">
-        <!-- Product cards -->
-        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
-          <div class="glass product-card product-animated p-3">
-            <img src="https://placehold.co/400x300/png?text=Item+1" alt="item" class="product-image">
-            <div class="card-detail">
-              <div>
-                <div style="font-weight:700">Running shoes</div>
-                <div style="opacity:.7;font-size:.9rem">Men &amp; Women</div>
-              </div>
-              <div style="font-weight:800">$99</div>
+    <!-- Section 2: Diagonal home -->
+    <section class="highlight" id="hightlight" style="margin-top: 100px;">
+        <h2 class="section-title">NIKE HIGHLIGHTS</h2>
+        <div class="hexagon-container">
+            <div class="hexagon">
+                <div class="hexagon-inner glass">
+                    <div class="hexagon-icon">👟</div>
+                    <h4>Air Max</h4>
+                    <p>Iconic comfort with visible Air cushioning</p>
+                </div>
             </div>
-          </div>
-        </div>
-
-        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
-          <div class="glass product-card product-animated p-3">
-            <img src="https://placehold.co/400x300/png?text=Item+2" alt="item" class="product-image">
-            <div class="card-detail">
-              <div>
-                <div style="font-weight:700">Sneakers</div>
-                <div style="opacity:.7;font-size:.9rem">Casual</div>
-              </div>
-              <div style="font-weight:800">$79</div>
+            <div class="hexagon">
+                <div class="hexagon-inner glass">
+                    <div class="hexagon-icon">🏀</div>
+                    <h4>Air Jordan</h4>
+                    <p>Legendary basketball shoes made famous by Michael Jordan</p>
+                </div>
             </div>
-          </div>
-        </div>
-
-        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
-          <div class="glass product-card product-animated p-3">
-            <img src="https://placehold.co/400x300/png?text=Item+3" alt="item" class="product-image">
-            <div class="card-detail">
-              <div>
-                <div style="font-weight:700">Sport Shoes</div>
-                <div style="opacity:.7;font-size:.9rem">Performance</div>
-              </div>
-              <div style="font-weight:800">$129</div>
+            <div class="hexagon">
+                <div class="hexagon-inner glass">
+                    <div class="hexagon-icon">⚡</div>
+                    <h4>Nike Zoom</h4>
+                    <p>Lightweight speed shoes built for athletes</p>
+                </div>
             </div>
-          </div>
-        </div>
-
-        <div class="col-6 col-sm-6 col-md-4 col-lg-3">
-          <div class="glass product-card product-animated p-3">
-            <img src="https://placehold.co/400x300/png?text=Item+4" alt="item" class="product-image">
-            <div class="card-detail">
-              <div>
-                <div style="font-weight:700">Classic Leather</div>
-                <div style="opacity:.7;font-size:.9rem">Premium</div>
-              </div>
-              <div style="font-weight:800">$149</div>
+            <div class="hexagon">
+                <div class="hexagon-inner glass">
+                    <div class="hexagon-icon">🌍</div>
+                    <h4>Move to Zero</h4>
+                    <p>Sustainable shoes made with recycled materials</p>
+                </div>
             </div>
-          </div>
+            <div class="hexagon">
+                <div class="hexagon-inner glass">
+                    <div class="hexagon-icon">🏃</div>
+                    <h4>Running</h4>
+                    <p>High-performance shoes designed for runners worldwide</p>
+                </div>
+            </div>
+            <div class="hexagon">
+                <div class="hexagon-inner glass">
+                    <div class="hexagon-icon">⭐</div>
+                    <h4>Lifestyle</h4>
+                    <p>Everyday sneakers combining comfort and style</p>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
-  </main>
-<br>
+    <!-- Section 4: Timeline -->
+    <section class="timeline" id="timeline">
+        <h2 class="section-title">NIKE HISTORY TIMELINE</h2>
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+
+            <div class="timeline-item">
+                <div class="timeline-content glass">
+                    <div class="timeline-year">1964</div>
+                    <h4>Blue Ribbon Sports</h4>
+                    <p>Nike began as Blue Ribbon Sports, founded by Bill Bowerman and Phil Knight, selling Onitsuka
+                        Tiger shoes from Japan.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content glass">
+                    <div class="timeline-year">1971</div>
+                    <h4>The Nike Brand</h4>
+                    <p>The company officially became Nike, Inc. The famous Swoosh logo was created and the first Nike
+                        shoes were released.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content glass">
+                    <div class="timeline-year">1984</div>
+                    <h4>Air Jordan</h4>
+                    <p>Nike launched the Air Jordan line with basketball legend Michael Jordan, becoming a cultural icon
+                        worldwide.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content glass">
+                    <div class="timeline-year">1996</div>
+                    <h4>Global Expansion</h4>
+                    <p>Nike grew into a global leader in sportswear, sponsoring top athletes and dominating the athletic
+                        footwear market.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content glass">
+                    <div class="timeline-year">Today</div>
+                    <h4>Innovation & Sustainability</h4>
+                    <p>Nike continues to lead with innovation, performance gear, and sustainability efforts, inspiring
+                        athletes worldwide.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+        </div>
+    </section>
+    <!-- Section 5: Contact -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-info glass">
+                <h3>GET IN TOUCH</h3>
+                <p>Have a question about our Nike shoes or your order? Our team is here to help you with product
+                    details,
+                    sizes, and the latest collections.</p>
+                <p>Reach out to us anytime and we’ll get back to you as soon as possible.</p>
+                <div class="social-links">
+                    <a href="#" class="glass" aria-label="Phone">
+                        <!-- Phone SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                            class="bi bi-telephone" viewBox="0 0 16 16">
+                            <path
+                                d="M3.654 1.328a.678.678 0 0 1 1.015-.063L6.29 2.48c.329.329.445.81.303 1.242l-.547 1.64a.678.678 0 0 0 .168.707l2.457 2.457a.678.678 0 0 0 .707.168l1.64-.547c.432-.142.913-.026 1.242.303l1.215 1.621c.272.363.247.87-.063 1.015l-2.31 1.154c-.376.188-.84.144-1.18-.113a17.478 17.478 0 0 1-6.59-6.59c-.257-.34-.3-.804-.113-1.18l1.154-2.31z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="glass" aria-label="Website">
+                        <!-- Globe SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                            class="bi bi-globe2" viewBox="0 0 16 16">
+                            <path
+                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0 0 14V1zM1 8a7 7 0 0 0 7-7H1zm7 7a7 7 0 0 0 7-7H8zm0-14a7 7 0 0 0-7 7h7V1z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="glass" aria-label="Chat">
+                        <!-- Chat SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                            class="bi bi-chat-dots" viewBox="0 0 16 16">
+                            <path
+                                d="M2 2a2 2 0 0 0-2 2v7.586A2 2 0 0 0 1.586 14L4 11.586V12a2 2 0 0 0 2 2h7.586A2 2 0 0 0 16 12.414V4a2 2 0 0 0-2-2H2zm3 6.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="glass" aria-label="Email">
+                        <!-- Envelope SVG -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                            class="bi bi-envelope" viewBox="0 0 16 16">
+                            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v.217L8 8.083 0 4.217V4z" />
+                            <path
+                                d="M0 4.697v7.104l5.803-3.551L0 4.697zM6.761 8.83l-6.76 4.136A2 2 0 0 0 2 14h12a2 2 0 0 0 1.999-1.034l-6.76-4.136L8 9.583l-1.239-.753zM16 4.697l-5.803 3.553L16 11.801V4.697z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="contact-form glass">
+                <div class="form-group">
+                    <input type="text" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Subject" required>
+                </div>
+                <div class="form-group">
+                    <textarea rows="5" placeholder="Your Message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">SEND MESSAGE</button>
+            </div>
+        </div>
+    </section>
     <!-- Footer -->
-  <footer class="site-footer">
-    <div class="container-lg d-flex justify-content-between align-items-center">
-      <div>
-        <strong>LiquidGlass Shop</strong>
-        <div style="opacity:.7;font-size:.9rem">© Bản quyền 2025</div>
-      </div>
-      <div>
-        <a class="text-white-50 me-3" href="#">Privacy</a>
-        <a class="text-white-50" href="#">Contact</a>
-      </div>
-    </div>
-  </footer>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <div id="footer"></div>
+    <script src="js/neuglass.js"></script>
+    <script src="js/app.js"></script>
 </body>
+
 </html>
+<script>
+    async function loadHTML(id, file) {
+        const response = await fetch(file);
+        document.getElementById(id).innerHTML = await response.text();
+    }
+    loadHTML("header", "header.html");
+    loadHTML("footer", "footer.html");
+</script>
