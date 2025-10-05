@@ -1,115 +1,64 @@
-<!-- ✅ file: login.html -->
-<!doctype html>
-<html lang="vi">
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Đăng nhập - Shoe Shop</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background: linear-gradient(180deg, #f8f9fa, #ffeedd);
-            font-family: Inter, system-ui
-        }
-
-        .card {
-            border-radius: 16px;
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08)
-        }
-
-        .brand {
-            font-weight: 700;
-            letter-spacing: 1px
-        }
-
-        .hero {
-            background: url('https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?q=80&w=1400&auto=format&fit=crop&cs=tinysrgb') center/cover;
-            border-radius: 12px;
-            min-height: 180px
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Nike Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="style/neuglass.css" rel="stylesheet">
+    <link href="style/style.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card p-4">
-                    <div class="text-center mb-3">
-                        <div class="brand h3">Shoe<span style="color:#ff6b6b">Shop</span></div>
-                        <p class="text-muted">Đăng nhập để tiếp tục</p>
-                    </div>
-                    <form id="loginForm">
-                        <div class="mb-3">
-                            <label class="form-label">Email hoặc tên đăng nhập</label>
-                            <input type="text" id="loginIdentifier" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Mật khẩu</label>
-                            <input type="password" id="loginPassword" class="form-control" required>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div><input type="checkbox" id="rememberMe"> Ghi nhớ đăng nhập</div>
-                            <a href="register.html">Chưa có tài khoản?</a>
-                        </div>
-                        <div class="d-grid"><button class="btn btn-primary">Đăng nhập</button></div>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <!-- Hiệu ứng nền -->
+    <div class="neural-background"></div>
+    <div class="geometric-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Form đăng nhập -->
+    <div class="auth-container glass">
+        <h2 class="text-center mb-3">Welcome Back 👟</h2>
+        <p class="text-center mb-4" style="color:rgba(255,255,255,0.7)">Đăng nhập để tiếp tục mua sắm tại <b>Nike Store</b></p>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Email" required />
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Mật khẩu" required />
+            </div>
+            <button type="submit" class="submit-btn">Đăng nhập</button>
+        </form>
+
+        <p class="text-center mt-4" style="color:white;">
+            Chưa có tài khoản?
+            <a href="register.html" style="color:#0ff;font-weight:600;">Đăng ký ngay</a>
+        </p>
+        <a href="index.html" class="back-home">← Về trang chủ</a>
+    </div>
+
     <script>
-        const STORAGE_KEY = 'ss_users_v1';
         const CURRENT_KEY = 'ss_currentUser';
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
 
-        async function hashPassword(p) {
-            const b = new TextEncoder().encode(p);
-            const h = await crypto.subtle.digest('SHA-256', b);
-            return Array.from(new Uint8Array(h))
-                .map(b => b.toString(16).padStart(2, '0'))
-                .join('');
-        }
-
-        document.getElementById('loginForm').addEventListener('submit', async e => {
+        document.getElementById("loginForm").addEventListener("submit", e => {
             e.preventDefault();
+            const email = email.value.trim();
+            const pass = password.value.trim();
 
-            const id = document.getElementById('loginIdentifier').value.trim();
-            const pw = document.getElementById('loginPassword').value;
-            const remember = document.getElementById('rememberMe').checked;
-
-            const list = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-            const hash = await hashPassword(pw);
-
-            const user = list.find(u =>
-                (u.email === id.toLowerCase() || u.username === id) &&
-                u.passwordHash === hash
-            );
-
-            if (!user) {
-                alert('Sai thông tin đăng nhập!');
-                return;
+            const found = users.find(u => u.email === email && u.password === pass);
+            if (found) {
+                localStorage.setItem(CURRENT_KEY, JSON.stringify(found));
+                alert("Đăng nhập thành công!");
+                window.location.href = "index.html";
+            } else {
+                alert("Sai email hoặc mật khẩu!");
             }
-
-            const session = {
-                id: user.id,
-                username: user.username,
-                fullName: user.fullName
-            };
-
-            if (remember)
-                localStorage.setItem(CURRENT_KEY, JSON.stringify(session));
-            else
-                sessionStorage.setItem(CURRENT_KEY, JSON.stringify(session));
-
-            alert('Chào ' + user.fullName + '! Đăng nhập thành công.');
-
-            // ✅ Chuyển về trang chủ sau khi đăng nhập thành công
-            window.location.href = 'index.html';
         });
     </script>
 </body>
-
 </html>

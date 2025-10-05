@@ -55,7 +55,14 @@ function updateCartCount() {
 // =======================
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("product-container");
+  const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+  const navLinks = document.querySelector(".nav-links");
 
+  if (mobileMenuToggle && navLinks) {
+    mobileMenuToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("show");
+    });
+  }
   if (container) {
     products.forEach((product) => {
       const card = document.createElement("div");
@@ -215,7 +222,14 @@ function renderCart() {
   cartTotal.textContent = total.toLocaleString("vi-VN") + " VND";
   updateCartCount();
 }
-
+// Toggle mobile menu
+document.addEventListener('DOMContentLoaded', function() {
+  const menuToggle = document.querySelector('.mobile-menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  menuToggle.addEventListener('click', function() {
+    navLinks.classList.toggle('show');
+  });
+});
 document.addEventListener("DOMContentLoaded", () => {
   renderCart();
 

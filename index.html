@@ -263,6 +263,8 @@
         // 👉 Nếu là header thì sau khi load xong ta gắn logic Logout
         if (id === "header") {
             setupAuthUI();
+            // ✅ Thêm logic ẩn/hiện header sau khi nó đã được tải vào DOM
+            setupSmartHeader();
         }
     }
 
@@ -271,7 +273,7 @@
     loadHTML("footer", "footer.html");
 
     // =============================
-    // 🔹 HÀM KIỂM TRA LOGIN + LOGOUT
+    // 🔹 HÀM KIỂM TRA LOGIN + LOGOUT (Giữ nguyên)
     // =============================
     function setupAuthUI() {
         const currentUser =
@@ -285,9 +287,9 @@
             const userInfo = document.createElement("div");
             userInfo.className = "d-flex justify-content-end align-items-center p-3";
             userInfo.innerHTML = `
-                <span class="me-3 fw-semibold" style="color:white;">👋 Xin chào, ${currentUser.fullName}</span>
-                <button id="logoutBtn" class="btn btn-danger btn-sm">Đăng xuất</button>
-            `;
+                <span class="me-3 fw-semibold" style="color:white;">👋 Xin chào, ${currentUser.fullName}</span>
+                <button id="logoutBtn" class="btn btn-danger btn-sm">Đăng xuất</button>
+            `;
             headerEl.appendChild(userInfo);
 
             document.getElementById("logoutBtn").addEventListener("click", () => {
@@ -298,9 +300,35 @@
                     window.location.href = "login.html";
                 }
             });
-        } else {
-            // ❌ Chưa đăng nhập → chuyển về login.html
-            window.location.href = "login.html";
         }
     }
+
+    // =============================
+    // 🔹 HÀM ẨN/HIỆN HEADER KHI CUỘN CHUỘT
+    // =============================
+    function setupSmartHeader() {
+        // Target the <header> element inside the #header div
+        const headerElement = document.querySelector('header.glass'); // TÌM ĐÚNG header
+        if (!headerElement) return;
+
+        let lastScrollY = window.scrollY;
+        const scrollThreshold = 100;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+
+            // Cuộn xuống (Hide)
+            if (currentScrollY > lastScrollY && currentScrollY > scrollThreshold) {
+                headerElement.classList.add('header-hidden');
+            }
+            // Cuộn lên hoặc gần đỉnh trang (Show)
+            else if (currentScrollY < lastScrollY || currentScrollY < scrollThreshold) {
+                headerElement.classList.remove('header-hidden');
+            }
+
+            lastScrollY = currentScrollY;
+        });
+    }
+    // ...
+    loadHTML("header", "header.html");
 </script>
