@@ -264,3 +264,57 @@ function showToast(message) {
     setTimeout(() => toast.remove(), 400);
   }, 2000);
 }
+// =======================
+// Render Related Products (Product Detail Page)
+// =======================
+const relatedContainer = document.getElementById("related-container");
+
+if (relatedContainer) {
+  // Lấy sản phẩm hiện tại
+  const currentProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+
+  // Lọc ra các sản phẩm khác (trừ sản phẩm đang xem)
+  const relatedProducts = products
+    .filter(p => p.name !== currentProduct?.name)
+    .slice(0, 6); // hiển thị tối đa 6 sản phẩm liên quan
+
+  // Render ra Swiper
+  relatedProducts.forEach(product => {
+    const slide = document.createElement("div");
+    slide.className = "swiper-slide";
+
+    slide.innerHTML = `
+      <div class="related-card">
+        <img src="${product.img}" alt="${product.name}" class="related-img">
+        <h4>${product.name}</h4>
+        <p>${product.price.toLocaleString("vi-VN")} VND</p>
+      </div>
+    `;
+
+    // Khi click mở chi tiết sản phẩm
+    slide.addEventListener("click", () => {
+      localStorage.setItem("selectedProduct", JSON.stringify(product));
+      window.location.href = "product-detail.html";
+    });
+
+    relatedContainer.appendChild(slide);
+  });
+
+  // Khởi tạo Swiper (nếu dùng SwiperJS)
+  if (typeof Swiper !== "undefined") {
+    new Swiper(".related-swiper", {
+      slidesPerView: 3,
+      spaceBetween: 15,
+      loop: true,
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      breakpoints: {
+        768: { slidesPerView: 3 },
+        480: { slidesPerView: 2 },
+        0: { slidesPerView: 1 },
+      },
+    });
+  }
+}

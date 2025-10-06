@@ -275,33 +275,7 @@
     // =============================
     // 🔹 HÀM KIỂM TRA LOGIN + LOGOUT (Giữ nguyên)
     // =============================
-    function setupAuthUI() {
-        const currentUser =
-            JSON.parse(localStorage.getItem(CURRENT_KEY) || sessionStorage.getItem(CURRENT_KEY) || 'null');
-
-        const headerEl = document.getElementById("header");
-        if (!headerEl) return;
-
-        if (currentUser) {
-            // ✅ Đã đăng nhập → hiển thị nút Logout + tên user
-            const userInfo = document.createElement("div");
-            userInfo.className = "d-flex justify-content-end align-items-center p-3";
-            userInfo.innerHTML = `
-                <span class="me-3 fw-semibold" style="color:white;">👋 Xin chào, ${currentUser.fullName}</span>
-                <button id="logoutBtn" class="btn btn-danger btn-sm">Đăng xuất</button>
-            `;
-            headerEl.appendChild(userInfo);
-
-            document.getElementById("logoutBtn").addEventListener("click", () => {
-                if (confirm("Bạn có chắc muốn đăng xuất không?")) {
-                    localStorage.removeItem(CURRENT_KEY);
-                    sessionStorage.removeItem(CURRENT_KEY);
-                    alert("Đăng xuất thành công!");
-                    window.location.href = "login.html";
-                }
-            });
-        }
-    }
+    
 
     // =============================
     // 🔹 HÀM ẨN/HIỆN HEADER KHI CUỘN CHUỘT

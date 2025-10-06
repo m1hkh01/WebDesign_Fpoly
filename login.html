@@ -4,61 +4,566 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Nike Store</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Nike Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link href="style/neuglass.css" rel="stylesheet">
     <link href="style/style.css" rel="stylesheet">
-</head>
+    <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200">
+    <circle cx="600" cy="600" r="600" fill="white"/>
+    <path d="M245.8075 717.62406c-29.79588-1.1837-54.1734-9.3368-73.23459-24.4796-3.63775-2.8928-12.30611-11.5663-15.21427-15.2245-7.72958-9.7193-12.98467-19.1785-16.48977-29.6734-10.7857-32.3061-5.23469-74.6989 15.87753-121.2243 18.0765-39.8316 45.96932-79.3366 94.63252-134.0508 7.16836-8.0511 28.51526-31.5969 28.65302-31.5969.051 0-1.11225 2.0153-2.57652 4.4694-12.65304 21.1938-23.47957 46.158-29.37751 67.7703-9.47448 34.6785-8.33163 64.4387 3.34693 87.5151 8.05611 15.898 21.86731 29.6684 37.3979 37.2806 27.18874 13.3214 66.9948 14.4235 115.60699 3.2245 3.34694-.7755 169.19363-44.801 368.55048-97.8366 199.35686-53.0408 362.49439-96.4029 362.51989-96.3672.056.046-463.16259 198.2599-703.62654 301.0914-38.08158 16.2806-48.26521 20.3928-66.16827 26.6785-45.76525 16.0714-86.76008 23.7398-119.89779 22.4235z" fill="black"/>
+    </svg>'>
 
-<body>
-    <!-- Hiệu ứng nền -->
-    <div class="neural-background"></div>
+
+    <!-- TemplateMo 597 Neural Glass https://templatemo.com/tm-597-neural-glass -->
+    <style> </style>
+</head>
+<br><br><br><br><br><br><br>
+
+<body> <!-- Epic Neural Background -->
+    <div class="neural-background"></div> <!-- Floating Geometric Shapes -->
     <div class="geometric-shapes">
         <div class="shape"></div>
         <div class="shape"></div>
         <div class="shape"></div>
+        <div class="shape"></div>
+    </div> <!-- Neural Network Lines -->
+    <div class="neural-lines">
+        <div class="neural-line"></div>
+        <div class="neural-line"></div>
+        <div class="neural-line"></div>
+    </div>
+    <!-- Header -->
+    <div id="header"></div>
+    <!-- Thêm vào body, ngay sau <div id="header"></div> -->
+    <div id="account-popup"
+        style="display:none; position:fixed; top:70px; right:20px; background:white; color:#333; padding:15px 20px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.2); z-index:10000;">
+        <div style="margin-bottom:10px;">👤 <span id="account-name"></span></div>
+        <div style="margin-bottom:10px;">📧 <span id="account-email"></span></div>
+        <button id="logoutBtnForm"
+            style="padding:6px 12px; background:#dc3545; color:white; border:none; border-radius:4px; cursor:pointer;">Đăng
+            xuất</button>
     </div>
 
-    <!-- Form đăng nhập -->
-    <div class="auth-container glass">
-        <h2 class="text-center mb-3">Welcome Back 👟</h2>
-        <p class="text-center mb-4" style="color:rgba(255,255,255,0.7)">Đăng nhập để tiếp tục mua sắm tại <b>Nike Store</b></p>
-
-        <form id="loginForm">
-            <div class="form-group">
-                <input type="email" id="email" placeholder="Email" required />
+    <!-- Forms Section -->
+    <section class="forms-section" style="margin-top: 10px">
+        <div class="forms" style="margin-top: 10px">
+            <div class="form-wrapper is-active">
+                <button type="button" class="switcher switcher-login">
+                    Login
+                    <span class="underline"></span>
+                </button>
+                <form class="form form-login">
+                    <fieldset>
+                        <legend>Please, enter your email and password for login.</legend>
+                        <div class="input-block">
+                            <label for="login-email">E-mail</label>
+                            <input id="login-email" type="email" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="login-password">Password</label>
+                            <input id="login-password" type="password" required>
+                        </div>
+                    </fieldset>
+                    <button typea="submit" class="btn-login">Login</button>
+                </form>
             </div>
-            <div class="form-group">
-                <input type="password" id="password" placeholder="Mật khẩu" required />
+            <div class="form-wrapper">
+                <button type="button" class="switcher switcher-signup">
+                    Sign Up
+                    <span class="underline"></span>
+                </button>
+                <form class="form form-signup">
+                    <fieldset>
+                        <legend>Please, enter your email, password and password confirmation for sign up.</legend>
+                        <div class="input-block">
+                            <label for="signup-email">E-mail</label>
+                            <input id="signup-email" type="email" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="signup-password">Password</label>
+                            <input id="signup-password" type="password" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="signup-password-confirm">Confirm password</label>
+                            <input id="signup-password-confirm" type="password" required>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn-signup">Continue</button>
+                </form>
             </div>
-            <button type="submit" class="submit-btn">Đăng nhập</button>
-        </form>
-
-        <p class="text-center mt-4" style="color:white;">
-            Chưa có tài khoản?
-            <a href="register.html" style="color:#0ff;font-weight:600;">Đăng ký ngay</a>
-        </p>
-        <a href="index.html" class="back-home">← Về trang chủ</a>
-    </div>
-
-    <script>
-        const CURRENT_KEY = 'ss_currentUser';
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
-
-        document.getElementById("loginForm").addEventListener("submit", e => {
-            e.preventDefault();
-            const email = email.value.trim();
-            const pass = password.value.trim();
-
-            const found = users.find(u => u.email === email && u.password === pass);
-            if (found) {
-                localStorage.setItem(CURRENT_KEY, JSON.stringify(found));
-                alert("Đăng nhập thành công!");
-                window.location.href = "index.html";
-            } else {
-                alert("Sai email hoặc mật khẩu!");
-            }
-        });
-    </script>
+        </div>
+    </section>
+    <!-- Footer -->
+    <div id="footer"></div>
+    <script src="js/neuglass.js"></script>
+    <script src="js/app.js"></script>
 </body>
+
 </html>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // =============================
+        // 🔹 Key lưu trữ
+        // =============================
+        const CURRENT_KEY = "ss_currentUser";
+        const USERS_KEY = "ss_users";
+
+        // =============================
+        // 🔹 Elements
+        // =============================
+        const switchers = [...document.querySelectorAll(".switcher")];
+        const signupForm = document.querySelector(".form-signup");
+        const loginForm = document.querySelector(".form-login");
+
+        // =============================
+        // 🔹 Chuyển tab Login / Sign Up
+        // =============================
+        switchers.forEach(item => {
+            item.addEventListener("click", function () {
+                switchers.forEach(sw => sw.parentElement.classList.remove("is-active"));
+                this.parentElement.classList.add("is-active");
+            });
+        });
+
+        // =============================
+        // 🔹 Load header/footer
+        // =============================
+        async function loadHTML(id, file) {
+            const response = await fetch(file);
+            document.getElementById(id).innerHTML = await response.text();
+
+            if (id === "header") {
+                setupHeaderAuthUI();
+                setupSmartHeader();
+            }
+        }
+
+        loadHTML("header", "header.html");
+        loadHTML("footer", "footer.html");
+
+        // =============================
+        // 🔹 Sign Up
+        // =============================
+        signupForm.addEventListener("submit", e => {
+            e.preventDefault();
+
+            const email = document.getElementById("signup-email").value.trim();
+            const password = document.getElementById("signup-password").value.trim();
+            const confirm = document.getElementById("signup-password-confirm").value.trim();
+
+            if (!email || !password || !confirm) return alert("⚠️ Please enter complete information!");
+            if (password !== confirm) return alert("⚠️ Confirmation password does not match!");
+
+            const users = JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+
+            if (users.some(u => u.email === email)) return alert("⚠️ This email is already registered!");
+
+            const newUser = {
+                email,
+                password,
+                fullName: email.split("@")[0],
+                createdAt: new Date().toISOString()
+            };
+
+            users.push(newUser);
+            localStorage.setItem(USERS_KEY, JSON.stringify(users));
+            alert("✅ Registration successful! Please log in to continue.");
+
+            // Chuyển sang tab Login
+            switchers.forEach(sw => sw.parentElement.classList.remove("is-active"));
+            loginForm.parentElement.classList.add("is-active");
+        });
+
+        // =============================
+        // 🔹 Login
+        // =============================
+        loginForm.addEventListener("submit", e => {
+            e.preventDefault();
+
+            const email = document.getElementById("login-email").value.trim();
+            const password = document.getElementById("login-password").value.trim();
+            const users = JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+
+            const found = users.find(u => u.email === email && u.password === password);
+            if (!found) return alert("❌ Sai email hoặc mật khẩu!");
+
+            localStorage.setItem(CURRENT_KEY, JSON.stringify(found));
+
+            // Hiển thị toast đăng nhập thành công
+            showLoginToast(found.fullName || found.email.split("@")[0]);
+
+            // Chuyển về trang index sau 1s
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1000);
+        });
+
+        // =============================
+        // 🔹 Toast đăng nhập thành công
+        // =============================
+        function showLoginToast(userName) {
+            let toastContainer = document.getElementById("toast-container");
+            if (!toastContainer) {
+                toastContainer = document.createElement("div");
+                toastContainer.id = "toast-container";
+                toastContainer.style.position = "fixed";
+                toastContainer.style.top = "20px";
+                toastContainer.style.right = "20px";
+                toastContainer.style.zIndex = "9999";
+                document.body.appendChild(toastContainer);
+            }
+
+            const toast = document.createElement("div");
+            toast.style.background = "#198754";
+            toast.style.color = "white";
+            toast.style.padding = "12px 20px";
+            toast.style.marginBottom = "10px";
+            toast.style.borderRadius = "6px";
+            toast.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
+            toast.style.fontWeight = "500";
+            toast.style.display = "flex";
+            toast.style.alignItems = "center";
+            toast.style.justifyContent = "space-between";
+            toast.innerHTML = `
+            🎉 Welcome, ${userName}!
+            <button style="margin-left:15px; background:none; border:none; color:white; cursor:pointer; font-weight:bold;">✖</button>
+        `;
+
+            toast.querySelector("button").addEventListener("click", () => toast.remove());
+            toastContainer.appendChild(toast);
+
+            setTimeout(() => toast.remove(), 5000);
+        }
+
+        // =============================
+        // 🔹 Header UI: Hiển thị tên + Logout
+        // =============================
+        function setupHeaderAuthUI() {
+            const currentUser = JSON.parse(localStorage.getItem(CURRENT_KEY));
+            const accountDropdown = document.getElementById("account-dropdown");
+            if (!accountDropdown) return;
+
+            const dropContent = accountDropdown.querySelector(".dropdown-content");
+            const dropBtn = accountDropdown.querySelector(".dropbtn");
+
+            if (currentUser) {
+                dropContent.innerHTML = `
+                <div style="padding:10px 15px; border-bottom:1px solid rgba(255,255,255,0.2); color:white;">
+                    👋 Welcome, <b>${currentUser.fullName || currentUser.email.split("@")[0]}</b>
+                </div>
+                <button id="logoutBtn" style="width:100%; padding:8px 0; background:#dc3545; color:white; border:none; cursor:pointer; border-radius:0 0 6px 6px;">
+                    Logout
+                </button>
+            `;
+            } else {
+                dropContent.innerHTML = `
+                <a href="login.html" style="display:block; padding:10px 15px;">Login</a>
+                <a href="login.html" style="display:block; padding:10px 15px;">Sign Up</a>
+            `;
+            }
+
+            dropContent.style.display = "none";
+
+            // Toggle dropdown
+            dropBtn.addEventListener("click", () => {
+                dropContent.style.display = dropContent.style.display === "none" ? "block" : "none";
+            });
+
+            // Click ngoài dropdown đóng
+            window.addEventListener("click", e => {
+                if (!accountDropdown.contains(e.target)) dropContent.style.display = "none";
+            });
+
+            // Logout
+            const logoutBtn = dropContent.querySelector("#logoutBtn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", () => {
+                    if (confirm("Logout?")) {
+                        localStorage.removeItem(CURRENT_KEY);
+                        location.reload();
+                    }
+                });
+            }
+        }
+
+        // =============================
+        // 🔹 Ẩn/hiện header khi scroll
+        // =============================
+        function setupSmartHeader() {
+            const headerElement = document.querySelector("header.glass");
+            if (!headerElement) return;
+
+            let lastScrollY = window.scrollY;
+            const scrollThreshold = 100;
+
+            window.addEventListener("scroll", () => {
+                const currentScrollY = window.scrollY;
+
+                if (currentScrollY > lastScrollY && currentScrollY > scrollThreshold) {
+                    headerElement.classList.add("header-hidden");
+                } else if (currentScrollY < lastScrollY || currentScrollY < scrollThreshold) {
+                    headerElement.classList.remove("header-hidden");
+                }
+
+                lastScrollY = currentScrollY;
+            });
+        }
+    });
+</script>
+
+
+<style>
+/* =============================
+ Reset cơ bản
+============================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+    background: #3b4465;
+}
+
+/* =============================
+ Section chứa form
+============================= */
+.forms-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 32px;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+.forms {
+    display: flex;
+    align-items: flex-start;    
+    margin-top: 30px;
+}
+
+/* =============================
+ Wrapper form
+============================= */
+.form-wrapper {
+    animation: hideLayer .3s ease-out forwards;
+}
+
+.form-wrapper.is-active {
+    animation: showLayer .3s ease-in forwards;
+}
+
+@keyframes showLayer { 50%, 100% { z-index: 1; } }
+@keyframes hideLayer { 0%, 49.999% { z-index: 1; } }
+
+/* =============================
+ Switcher
+============================= */
+.switcher {
+    position: relative;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto 20px;
+    padding: 0;
+    text-transform: uppercase;
+    font-family: inherit;
+    font-size: 16px;
+    letter-spacing: .5px;
+    color: #999;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    transform: translateX(0);
+    transition: all .3s ease-out;
+}
+
+.form-wrapper.is-active .switcher-login {
+    color: #fff;
+    transform: translateX(90px);
+}
+
+.form-wrapper.is-active .switcher-signup {
+    color: #fff;
+    transform: translateX(-90px);
+}
+
+.underline {
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+    width: 100%;
+    height: 2px;
+}
+
+.underline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: inherit;
+    display: block;
+    width: inherit;
+    height: inherit;
+    background-color: currentColor;
+    transition: transform .2s ease-out;
+}
+
+.switcher-login .underline::before { transform: translateX(101%); }
+.switcher-signup .underline::before { transform: translateX(-101%); }
+.form-wrapper.is-active .underline::before { transform: translateX(0); }
+
+/* =============================
+ Form chính
+============================= */
+.form {
+    overflow: hidden;
+    min-width: 400px;
+    max-width: 300px;
+    margin-top: 50px;
+    padding: 40px 35px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.356);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transform-origin: top;
+}
+
+/* =============================
+ Animation Login/Signup
+============================= */
+.form-login { animation: hideLogin .3s ease-out forwards; }
+.form-wrapper.is-active .form-login { animation: showLogin .3s ease-in forwards; }
+.form-signup { animation: hideSignup .3s ease-out forwards; }
+.form-wrapper.is-active .form-signup { animation: showSignup .3s ease-in forwards; }
+
+@keyframes showLogin {
+    0% { background: rgba(255,255,255,0.1); transform: translate(40%,10px); }
+    50% { transform: translate(0,0); }
+    100% { background: rgba(255, 255, 255, 0.093); transform: translate(35%,-20px); }
+}
+@keyframes hideLogin {
+    0% { background: rgba(255,255,255,0.2); transform: translate(35%,-20px); }
+    50% { transform: translate(0,0); }
+    100% { background: rgba(255,255,255,0.1); transform: translate(40%,10px); }
+}
+@keyframes showSignup {
+    0% { background: rgba(255,255,255,0.1); transform: translate(-40%,10px) scaleY(.8); }
+    50% { transform: translate(0,0) scaleY(.8); }
+    100% { background: rgba(255, 255, 255, 0.093); transform: translate(-35%,-20px) scaleY(1); }
+}
+@keyframes hideSignup {
+    0% { background: rgba(255,255,255,0.2); transform: translate(-35%,-20px) scaleY(1); }
+    50% { transform: translate(0,0) scaleY(.8); }
+    100% { background: rgba(255,255,255,0.1); transform: translate(-40%,10px) scaleY(.8); }
+}
+
+/* =============================
+ Fieldset
+============================= */
+.form fieldset {
+    position: relative;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    transition: all .3s ease-out;
+}
+
+.form-login fieldset { transform: translateX(-50%); }
+.form-signup fieldset { transform: translateX(50%); }
+
+.form-wrapper.is-active fieldset {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity .4s ease-in, transform .35s ease-in;
+}
+
+.form legend {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    clip: rect(0 0 0 0);
+}
+
+/* =============================
+ Input / Textbox Trong Suốt
+============================= */
+.input-block {
+    margin-bottom: 20px;
+}
+
+.input-block label {
+    font-size: 14px;
+    color: #fff;
+}
+
+.input-block input {
+    display: block;
+    width: 100%;
+    height: 20%;
+    margin-top: 8px;
+    padding: 12px 15px;
+    font-size: 15px;
+    line-height: 40px;
+    color: #ffffffd1;
+    background: rgba(255, 255, 255, 0.066);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+}
+
+.input-block input::placeholder {
+    color: rgba(255,255,255,0.6);
+}
+
+.input-block input:focus {
+    background: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.5);
+    outline: none;
+}
+
+/* =============================
+ Buttons Trong Suốt
+============================= */
+.btn-login,
+.btn-signup {
+    display: block;
+    width: 60%;
+    margin: 25px auto 0;
+    padding: 12px 0;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 25px;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-login:hover,
+.btn-signup:hover {
+    background: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.5);
+}
+</style>
