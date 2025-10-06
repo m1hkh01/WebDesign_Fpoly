@@ -230,7 +230,25 @@ document.addEventListener('DOMContentLoaded', function () {
     navLinks.classList.toggle('show');
   });
 });
+document.addEventListener("DOMContentLoaded", () => {
+  renderCart();
 
+  const checkoutBtn = document.getElementById("checkout-btn");
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", () => {
+      let cart = getCart();
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+      } else {
+        // Lưu giỏ hàng tạm vào localStorage để hiển thị trong trang checkout
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // Chuyển sang trang checkout.html
+        window.location.href = "checkout.html";
+      }
+    });
+  }
+});
 
 // =======================
 // Toast Notification
