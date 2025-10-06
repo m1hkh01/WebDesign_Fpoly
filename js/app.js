@@ -223,30 +223,14 @@ function renderCart() {
   updateCartCount();
 }
 // Toggle mobile menu
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const menuToggle = document.querySelector('.mobile-menu-toggle');
   const navLinks = document.querySelector('.nav-links');
-  menuToggle.addEventListener('click', function() {
+  menuToggle.addEventListener('click', function () {
     navLinks.classList.toggle('show');
   });
 });
-document.addEventListener("DOMContentLoaded", () => {
-  renderCart();
 
-  const checkoutBtn = document.getElementById("checkout-btn");
-  if (checkoutBtn) {
-    checkoutBtn.addEventListener("click", () => {
-      let cart = getCart();
-      if (cart.length === 0) {
-        alert("Your cart is empty!");
-      } else {
-        alert("Thank you for your purchase!");
-        localStorage.removeItem("cart");
-        renderCart();
-      }
-    });
-  }
-});
 
 // =======================
 // Toast Notification
