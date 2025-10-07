@@ -55,8 +55,14 @@ function updateCartCount() {
 // =======================
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("product-container");
-  if (container) {
-    products.forEach(product => {
+  const loadMoreBtn = document.getElementById("load-more");
+  const productsPerLoad = 6; // mỗi lần load thêm 6 sp
+  let currentIndex = 0;
+
+  function renderProducts() {
+    const nextProducts = products.slice(currentIndex, currentIndex + productsPerLoad);
+
+    nextProducts.forEach(product => {
       const card = document.createElement("div");
       card.className = "card";
       card.innerHTML = `
@@ -72,21 +78,41 @@ document.addEventListener("DOMContentLoaded", () => {
           <a href="#" class="btn-add">Add to cart</a>
         </div>
       `;
+
       card.addEventListener("click", () => {
         localStorage.setItem("selectedProduct", JSON.stringify(product));
         window.location.href = "product-detail.html";
       });
+
       const btn = card.querySelector(".btn-add");
       btn.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
         addToCart(product);
       });
+
       container.appendChild(card);
     });
+
+    currentIndex += productsPerLoad;
+
+    // Ẩn nút nếu đã hiển thị hết sản phẩm
+    if (currentIndex >= products.length) {
+      loadMoreBtn.style.display = "none";
+    }
   }
+
+  // Mặc định hiển thị 6 sản phẩm đầu tiên
+  if (container && products.length > 0) {
+    renderProducts();
+  }
+
+  // Khi nhấn nút Xem thêm
+  loadMoreBtn.addEventListener("click", renderProducts);
+
   updateCartCount();
 });
+
 
 // =======================
 // Product Detail Page
@@ -95,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const detailContainer = document.getElementById("product-detail");
   if (detailContainer) {
     const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
-    
+
     if (!selectedProduct) {
       detailContainer.innerHTML = "<p>No product selected.</p>";
       return;
@@ -140,7 +166,7 @@ function renderRelatedProducts(currentProductName) {
       <h3>${product.name}</h3>
       <p>${product.price.toLocaleString("vi-VN")} VND</p>
     `;
-    
+
     slide.addEventListener("click", () => {
       localStorage.setItem("selectedProduct", JSON.stringify(product));
       window.location.href = "product-detail.html";
