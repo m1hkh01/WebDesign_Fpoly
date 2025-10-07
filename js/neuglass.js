@@ -8,30 +8,77 @@ https://templatemo.com/tm-597-neural-glass
 
 */
 
-// Mobile menu functionality
+// Mobile menu functionality using event delegation so it works when header is injected later
+// This listener runs immediately and responds whenever the .mobile-menu-toggle is clicked
+// or when links/outside areas are clicked.
+(function () {
+    // Helper to close any mobile menu variants
+    function closeMobileMenus() {
         const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
         const mobileNav = document.querySelector('.mobile-nav');
+        const navLinks = document.querySelector('.nav-links');
 
-        mobileMenuToggle.addEventListener('click', () => {
-            mobileMenuToggle.classList.toggle('active');
-            mobileNav.classList.toggle('active');
-        });
+        if (mobileMenuToggle) {
+            mobileMenuToggle.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        }
+        if (mobileNav) {
+            mobileNav.classList.remove('active');
+            mobileNav.setAttribute('aria-hidden', 'true');
+        }
+        if (navLinks) {
+            navLinks.classList.remove('show');
+            navLinks.setAttribute('aria-hidden', 'true');
+        }
+    }
 
-        // Close mobile menu when clicking on links
-        document.querySelectorAll('.mobile-nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenuToggle.classList.remove('active');
-                mobileNav.classList.remove('active');
-            });
-        });
+    // Toggle when clicking the hamburger (works even if hamburger is added later)
+    document.addEventListener('click', (e) => {
+        const toggle = e.target.closest && e.target.closest('.mobile-menu-toggle');
+        if (toggle) {
+            // Find current nav elements at the moment of click
+            const mobileNav = document.querySelector('.mobile-nav');
+            const navLinks = document.querySelector('.nav-links');
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!mobileMenuToggle.contains(e.target) && !mobileNav.contains(e.target)) {
-                mobileMenuToggle.classList.remove('active');
-                mobileNav.classList.remove('active');
+            const isActive = toggle.classList.toggle('active');
+            if (mobileNav) {
+                mobileNav.classList.toggle('active');
+                mobileNav.setAttribute('aria-hidden', String(!isActive));
             }
-        });
+            if (navLinks) {
+                navLinks.classList.toggle('show');
+                navLinks.setAttribute('aria-hidden', String(!isActive));
+            }
+
+            // Update aria-expanded on toggle
+            toggle.setAttribute('aria-expanded', String(isActive));
+
+            // Prevent the document-level outside click handler from immediately closing it
+            e.stopPropagation();
+            return;
+        }
+
+        // If clicked on a navigation link, close menus
+        if (e.target.closest && (e.target.closest('.mobile-nav a') || e.target.closest('.nav-links a'))) {
+            closeMobileMenus();
+            return;
+        }
+
+        // Click outside: if user clicked neither toggle nor mobile nav nor nav-links -> close
+        const clickedInsideMobileNav = e.target.closest && e.target.closest('.mobile-nav');
+        const clickedInsideNavLinks = e.target.closest && e.target.closest('.nav-links');
+        const clickedInsideToggle = e.target.closest && e.target.closest('.mobile-menu-toggle');
+
+        if (!clickedInsideToggle && !clickedInsideMobileNav && !clickedInsideNavLinks) {
+            closeMobileMenus();
+        }
+    }, true);
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' || e.key === 'Esc') closeMobileMenus();
+    });
+})();
 
         // Enhanced smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

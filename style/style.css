@@ -7,17 +7,24 @@
   }
 
   .nav-links {
-    display: none;
+    display: none !important; /* ensure desktop nav is hidden on mobile to avoid duplicate menu */
     /* Ẩn menu desktop */
     flex-direction: column;
-    background: rgba(255, 255, 255, 0.06);
-    position: absolute;
-    top: 70px;
-    left: 0;
-    width: 100%;
-    backdrop-filter: blur(2px);
-    padding: 1rem 0;
+    background: rgba(255, 255, 255, 0.04);
+  position: absolute;
+  top: 84px; /* move down under header */
+  left: 52%;
+  transform: translateX(-40%);
+  width: 88%;
+  max-width: 320px;
+    backdrop-filter: blur(8px);
+    padding: 10px;
     text-align: center;
+    gap: 8px;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
   }
 
   .nav-links.show {
