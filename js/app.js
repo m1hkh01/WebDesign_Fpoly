@@ -156,7 +156,7 @@ function renderRelatedProducts(currentProductName) {
     centeredSlides: true,
     slidesPerView: "auto",
     coverflowEffect: {
-      rotate: 50,
+      rotate: 45,
       stretch: 0,
       depth: 10,
       modifier: 1,

@@ -1524,7 +1524,6 @@ body {
   height: 80px;
   object-fit: contain;
   border-radius: 12px;
-  background: rgba(255,255,255,0.3);
 }
 
 .cart-info {
