@@ -4,95 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - Nike Store</title>
+    <title>Nike Store - Cart</title>
 
-    <!-- Font & Style -->
+    <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
     <link href="style/neuglass.css" rel="stylesheet">
     <link href="style/style.css" rel="stylesheet">
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(120deg, #0f0f0f, #1a1a1a);
-            color: white;
-            overflow-x: hidden;
-        }
-
-        .checkout-container {
-            max-width: 600px;
-            margin: 100px auto;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-        }
-
-        .checkout-container h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        label {
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        input,
-        textarea {
-            padding: 12px 15px;
-            border-radius: 10px;
-            border: none;
-            font-size: 16px;
-            width: 100%;
-            outline: none;
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #fff;
-        }
-
-        input:focus,
-        textarea:focus {
-            border: 1px solid #4CAF50;
-            background-color: rgba(255, 255, 255, 0.15);
-        }
-
-        button {
-            background: #4CAF50;
-            color: white;
-            font-weight: 600;
-            border: none;
-            border-radius: 12px;
-            padding: 14px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #45a049;
-        }
-
-        .success-message {
-            text-align: center;
-            margin-top: 20px;
-            color: #00ff99;
-            display: none;
-        }
-    </style>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200">
+  <circle cx="600" cy="600" r="600" fill="white"/>
+  <path d="M245.8075 717.62406c-29.79588-1.1837-54.1734-9.3368-73.23459-24.4796-3.63775-2.8928-12.30611-11.5663-15.21427-15.2245-7.72958-9.7193-12.98467-19.1785-16.48977-29.6734-10.7857-32.3061-5.23469-74.6989 15.87753-121.2243 18.0765-39.8316 45.96932-79.3366 94.63252-134.0508 7.16836-8.0511 28.51526-31.5969 28.65302-31.5969.051 0-1.11225 2.0153-2.57652 4.4694-12.65304 21.1938-23.47957 46.158-29.37751 67.7703-9.47448 34.6785-8.33163 64.4387 3.34693 87.5151 8.05611 15.898 21.86731 29.6684 37.3979 37.2806 27.18874 13.3214 66.9948 14.4235 115.60699 3.2245 3.34694-.7755 169.19363-44.801 368.55048-97.8366 199.35686-53.0408 362.49439-96.4029 362.51989-96.3672.056.046-463.16259 198.2599-703.62654 301.0914-38.08158 16.2806-48.26521 20.3928-66.16827 26.6785-45.76525 16.0714-86.76008 23.7398-119.89779 22.4235z" fill="black"/>
+</svg>'>
 </head>
 
 <body>
+    <!-- Background effects -->
+    <div class="neural-background"></div>
+    <div class="geometric-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <div class="neural-lines">
+        <div class="neural-line"></div>
+        <div class="neural-line"></div>
+        <div class="neural-line"></div>
+    </div>
+
+    <!-- Header -->
+    <div id="header"></div>
+    <br><br><br><br><br><br><br>
+    <h2 class="section-title">Check Out</h2>
     <div class="checkout-container glass">
         <h2>Checkout Information</h2>
         <form id="checkout-form">
@@ -116,43 +66,140 @@
         </form>
         <p class="success-message" id="success-message">✅ Payment successful! Your order has been saved.</p>
     </div>
+    <div id="footer"></div>
+</body>
+<script>
+    const form = document.getElementById("checkout-form");
+    const successMessage = document.getElementById("success-message");
 
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const orderInfo = {
+            name: document.getElementById("name").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            phone: document.getElementById("phone").value.trim(),
+            address: document.getElementById("address").value.trim(),
+            date: new Date().toLocaleString(),
+        };
+
+        // Kiểm tra xem người dùng có điền đầy đủ không
+        if (!orderInfo.name || !orderInfo.email || !orderInfo.phone || !orderInfo.address) {
+            alert("⚠️ Please fill in all the required fields.");
+            return;
+        }
+
+        // Lưu vào localStorage
+        localStorage.setItem("checkoutInfo", JSON.stringify(orderInfo));
+
+        // Hiển thị thông báo
+        successMessage.style.display = "block";
+
+        // Reset form
+        form.reset();
+
+        // Chuyển hướng sau 2 giây
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 2000);
+    });
+</script>
+<!-- Scripts -->
+    <script src="js/neuglass.js"></script>
+    <script src="js/app.js"></script>
     <script>
-        const form = document.getElementById("checkout-form");
-        const successMessage = document.getElementById("success-message");
-
-        form.addEventListener("submit", (e) => {
-            e.preventDefault();
-
-            const orderInfo = {
-                name: document.getElementById("name").value.trim(),
-                email: document.getElementById("email").value.trim(),
-                phone: document.getElementById("phone").value.trim(),
-                address: document.getElementById("address").value.trim(),
-                date: new Date().toLocaleString(),
-            };
-
-            // Kiểm tra xem người dùng có điền đầy đủ không
-            if (!orderInfo.name || !orderInfo.email || !orderInfo.phone || !orderInfo.address) {
-                alert("⚠️ Please fill in all the required fields.");
-                return;
-            }
-
-            // Lưu vào localStorage
-            localStorage.setItem("checkoutInfo", JSON.stringify(orderInfo));
-
-            // Hiển thị thông báo
-            successMessage.style.display = "block";
-
-            // Reset form
-            form.reset();
-
-            // Chuyển hướng sau 2 giây
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 2000);
+        async function loadHTML(id, file) {
+            const res = await fetch(file);
+            document.getElementById(id).innerHTML = await res.text();
+        }
+        loadHTML("header", "header.html");
+        loadHTML("footer", "footer.html");
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            toggle.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+            });
         });
     </script>
-</body>
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(120deg, #0f0f0f, #1a1a1a);
+        color: white;
+        overflow-x: hidden;
+    }
+
+    .checkout-container {
+        max-width: 600px;
+        margin: 100px auto;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+    }
+
+    .checkout-container h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    label {
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    input,
+    textarea {
+        padding: 12px 15px;
+        border-radius: 10px;
+        border: none;
+        font-size: 16px;
+        width: 100%;
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+
+    input:focus,
+    textarea:focus {
+        border: 1px solid #77ae78;
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+
+    button {
+        background: #70cb73;
+        color: white;
+        font-weight: 600;
+        border: none;
+        border-radius: 12px;
+        padding: 14px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #63a665;
+    }
+
+    .success-message {
+        text-align: center;
+        margin-top: 20px;
+        color: #00ff99;
+        display: none;
+    }
+</style>
 
 </html>

@@ -20,7 +20,7 @@
 
             <!-- Account dropdown -->
             <li class="dropdown" id="account-dropdown">
-                <a href="login.html" class="dropbtn" style="padding-top: 0px;">Login</a>
+                <a href="login.html" class="dropbtn" style="padding-top: 0px;">Account</a>
                 <div class="dropdown-content glass" style="display:none; position:absolute; right:0; min-width:180px;">
                     <!-- Nội dung sẽ được JS chèn -->
                 </div>
@@ -39,47 +39,224 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const CURRENT_KEY = "ss_currentUser";
-    const currentUser = JSON.parse(localStorage.getItem(CURRENT_KEY));
-    const accountDropdown = document.getElementById("account-dropdown");
-    const dropContent = accountDropdown.querySelector(".dropdown-content");
-    const dropBtn = accountDropdown.querySelector(".dropbtn");
+        // =============================
+        // 🔹 Key lưu trữ
+        // =============================
+        const CURRENT_KEY = "ss_currentUser";
+        const USERS_KEY = "ss_users";
 
-    if (currentUser) {
-        // Nếu đã login, hiển thị tên + nút Logout
-        dropContent.innerHTML = `
-            <div style="padding:10px 15px; border-bottom:1px solid rgba(255,255,255,0.2); color:white;">
-                👋 Xin chào, <b>${currentUser.fullName || currentUser.email.split("@")[0]}</b>
-            </div>
-            <button id="logoutBtn" style="width:100%; padding:8px 0; background:#dc3545; color:white; border:none; cursor:pointer; border-radius:0 0 6px 6px;">
-                Logout
-            </button>
+        // =============================
+        // 🔹 Elements
+        // =============================
+        const switchers = [...document.querySelectorAll(".switcher")];
+        const signupForm = document.querySelector(".form-signup");
+        const loginForm = document.querySelector(".form-login");
+
+        // =============================
+        // 🔹 Chuyển tab Login / Sign Up
+        // =============================
+        switchers.forEach(item => {
+            item.addEventListener("click", function () {
+                switchers.forEach(sw => sw.parentElement.classList.remove("is-active"));
+                this.parentElement.classList.add("is-active");
+            });
+        });
+
+        // =============================
+        // 🔹 Load header/footer
+        // =============================
+        async function loadHTML(id, file) {
+            const response = await fetch(file);
+            document.getElementById(id).innerHTML = await response.text();
+
+            if (id === "header") {
+                setupHeaderAuthUI();
+                setupSmartHeader();
+            }
+        }
+
+        loadHTML("header", "header.html");
+        loadHTML("footer", "footer.html");
+
+        // =============================
+        // 🔹 Sign Up
+        // =============================
+        signupForm.addEventListener("submit", e => {
+            e.preventDefault();
+
+            const email = document.getElementById("signup-email").value.trim();
+            const password = document.getElementById("signup-password").value.trim();
+            const confirm = document.getElementById("signup-password-confirm").value.trim();
+
+            if (!email || !password || !confirm) return alert("⚠️ Please enter complete information!");
+            if (password !== confirm) return alert("⚠️ Confirmation password does not match!");
+
+            const users = JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+
+            if (users.some(u => u.email === email)) return alert("⚠️ This email is already registered!");
+
+            const newUser = {
+                email,
+                password,
+                fullName: email.split("@")[0],
+                createdAt: new Date().toISOString()
+            };
+
+            users.push(newUser);
+            localStorage.setItem(USERS_KEY, JSON.stringify(users));
+            alert("Sign up successful! Please log in to continue.");
+
+            // Chuyển sang tab Login
+            switchers.forEach(sw => sw.parentElement.classList.remove("is-active"));
+            loginForm.parentElement.classList.add("is-active");
+        });
+
+        // =============================
+        // 🔹 Login
+        // =============================
+        loginForm.addEventListener("submit", e => {
+            e.preventDefault();
+
+            const email = document.getElementById("login-email").value.trim();
+            const password = document.getElementById("login-password").value.trim();
+            const users = JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+
+            const found = users.find(u => u.email === email && u.password === password);
+            if (!found) return alert("❌ Wrong email or password!");
+
+            localStorage.setItem(CURRENT_KEY, JSON.stringify(found));
+
+            // Hiển thị toast đăng nhập thành công
+            showLoginToast(found.fullName || found.email.split("@")[0]);
+
+            // Chuyển về trang index sau 1s
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1000);
+        });
+
+        // =============================
+        // 🔹 Toast đăng nhập thành công
+        // =============================
+        function showLoginToast(userName) {
+            let toastContainer = document.getElementById("toast-container");
+            if (!toastContainer) {
+                toastContainer = document.createElement("div");
+                toastContainer.id = "toast-container";
+                toastContainer.style.position = "fixed";
+                toastContainer.style.top = "20px";
+                toastContainer.style.right = "20px";
+                toastContainer.style.zIndex = "9999";
+                document.body.appendChild(toastContainer);
+            }
+
+            const toast = document.createElement("div");
+            toast.style.background = "#198754";
+            toast.style.color = "white";
+            toast.style.padding = "12px 20px";
+            toast.style.marginBottom = "10px";
+            toast.style.borderRadius = "6px";
+            toast.style.boxShadow = "0 2px 8px rgba(0,0,0,0.2)";
+            toast.style.fontWeight = "500";
+            toast.style.display = "flex";
+            toast.style.alignItems = "center";
+            toast.style.justifyContent = "space-between";
+            toast.innerHTML = `
+            Welcome, ${userName}!
+            <button style="margin-left:15px; background:none; border:none; color:white; cursor:pointer; font-weight:bold;">✖</button>
         `;
-        dropContent.style.display = "none";
 
-        document.getElementById("logoutBtn").addEventListener("click", () => {
-            if (confirm("Bạn có chắc muốn đăng xuất không?")) {
-                localStorage.removeItem(CURRENT_KEY);
-                location.reload();
+            toast.querySelector("button").addEventListener("click", () => toast.remove());
+            toastContainer.appendChild(toast);
+
+            setTimeout(() => toast.remove(), 5000);
+        }
+
+        // =============================
+        // 🔹 Header UI: Hiển thị tên + Logout
+        // =============================
+        function setupHeaderAuthUI() {
+            const currentUser = JSON.parse(localStorage.getItem(CURRENT_KEY));
+            const accountDropdown = document.getElementById("account-dropdown");
+            if (!accountDropdown) return;
+
+            const dropContent = accountDropdown.querySelector(".dropdown-content");
+            const dropBtn = accountDropdown.querySelector(".dropbtn");
+
+            if (currentUser) {
+                dropContent.innerHTML = `
+                <div style="padding:10px 15px; border-bottom:1px solid rgba(255,255,255,0.2); color:white;">
+                    Welcome, <b>${currentUser.fullName || currentUser.email.split("@")[0]}</b>
+                </div>
+                <button id="logoutBtn" style="width:100%; padding:8px 0; background:#dc3545; color:white; border:none; cursor:pointer; border-radius:0 0 6px 6px;">
+                    Logout
+                </button>
+            `;
+            } else {
+                dropContent.innerHTML = `
+                <a href="login.html" style="display:block; padding:10px 15px;">Login</a>
+                <a href="login.html?mode=signup" style="display:block; padding:10px 15px;">Sign Up</a>
+
+            `;
             }
-        });
 
-        // Click để toggle dropdown
-        dropBtn.addEventListener("click", () => {
-            dropContent.style.display = dropContent.style.display === "none" ? "block" : "none";
-        });
+            dropContent.style.display = "none";
 
-        // Click ngoài dropdown để đóng
-        window.addEventListener("click", (e) => {
-            if (!accountDropdown.contains(e.target)) {
+            // Hover mở dropdown
+            accountDropdown.addEventListener("mouseenter", () => {
+                dropContent.style.display = "block";
+            });
+
+            // Rời chuột khỏi dropdown -> ẩn
+            accountDropdown.addEventListener("mouseleave", () => {
                 dropContent.style.display = "none";
+            });
+
+            // Logout
+            const logoutBtn = dropContent.querySelector("#logoutBtn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", () => {
+                    if (confirm("Logout?")) {
+                        localStorage.removeItem(CURRENT_KEY);
+                        location.reload();
+                    }
+                });
             }
-        });
-    } else {
-        // Nếu chưa login, click Account sẽ chuyển sang login.html
-        dropBtn.addEventListener("click", () => {
-            window.location.href = "login.html";
-        });
-    }
-});
+        }
+
+        // =============================
+        // 🔹 Ẩn/hiện header khi scroll
+        // =============================
+        function setupSmartHeader() {
+            const headerElement = document.querySelector("header.glass");
+            if (!headerElement) return;
+
+            let lastScrollY = window.scrollY;
+            const scrollThreshold = 100;
+
+            window.addEventListener("scroll", () => {
+                const currentScrollY = window.scrollY;
+
+                if (currentScrollY > lastScrollY && currentScrollY > scrollThreshold) {
+                    headerElement.classList.add("header-hidden");
+                } else if (currentScrollY < lastScrollY || currentScrollY < scrollThreshold) {
+                    headerElement.classList.remove("header-hidden");
+                }
+
+                lastScrollY = currentScrollY;
+            });
+        }
+        // =============================
+        // 🔹 Tự mở form Sign Up nếu có ?mode=signup
+        // =============================
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get("mode") === "signup") {
+            document.querySelectorAll(".form-wrapper").forEach(f => f.classList.remove("is-active"));
+            document.querySelector(".form-signup").closest(".form-wrapper").classList.add("is-active");
+        }
+
+    });
 </script>
+<style>
+    
+</style>

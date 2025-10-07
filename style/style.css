@@ -1354,6 +1354,7 @@ body {
   flex-direction: column;
   gap: 20px;
   padding: 30px;
+  color: #ffffffe9;
 }
 
 .cart-item {
@@ -1459,7 +1460,7 @@ body {
   border: none;
   cursor: pointer;
   color: white;
-  background: linear-gradient(90deg, #ff1a40, #d400ff);
+  background: linear-gradient(90deg, #ff4a69, #e358ff);
   transition: transform 0.2s, opacity 0.2s;
 }
 
