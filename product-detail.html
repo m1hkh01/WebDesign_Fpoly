@@ -73,5 +73,186 @@
     loadHTML("footer", "footer.html");
   </script>
 </body>
+<style>
+  /* ===== PRODUCT DETAIL PAGE ===== */
+  .product-detail-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 20px;
+    min-height: 60vh;
+  }
+
+  #product-detail.glass-card {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    max-width: 1000px;
+    width: 100%;
+    padding: 40px;
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    color: #fff;
+  }
+
+  #product-detail .detail-img img {
+    max-width: 400px;
+    width: 100%;
+    border-radius: 20px;
+    object-fit: contain;
+  }
+
+  #product-detail .detail-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  #product-detail .detail-info h2 {
+    font-size: 2rem;
+    margin: 0;
+    font-weight: 700;
+  }
+
+  #product-detail .price {
+    font-size: 1.3rem;
+    margin: 0;
+    font-weight: 500;
+    color: #ffc107;
+  }
+
+  #btn-add-detail {
+    background: linear-gradient(45deg, #4f4f4f, #ffffff);
+    color: rgb(255, 255, 255);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    max-width: 200px;
+  }
+
+  #btn-add-detail:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.5);
+  }
+
+  /* ===== RELATED PRODUCTS SECTION ===== */
+  .related-products {
+    margin-top: 50px;
+    padding: 40px 20px 80px;
+  }
+
+  .related-products .related-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 50px;
+    letter-spacing: 1px;
+  }
+
+  /* Swiper Container */
+  .related-swiper {
+    width: 100%;
+    padding: 20px 0 50px;
+  }
+
+  .related-swiper .swiper-wrapper {
+    padding: 20px 0;
+  }
+
+  /* Swiper Slides */
+  .related-swiper .swiper-slide {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    overflow: hidden;
+    text-align: center;
+    width: 280px !important;
+    height: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+  }
+
+  .related-swiper .swiper-slide:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .related-swiper .swiper-slide img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background: transparent;
+    margin-bottom: 15px;
+  }
+
+  .related-swiper .swiper-slide h3 {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .related-swiper .swiper-slide p {
+    color: #ffc107;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0;
+    text-align: center;
+  }
+
+  /* Swiper Pagination */
+  .swiper-pagination-bullet {
+    background: #696969;
+    transition: all 0.5s ease;
+    border-radius: 8px;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: #ffc107;
+    width: 30px;
+  }
+
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    #product-detail.glass-card {
+      flex-direction: column;
+      padding: 30px 20px;
+    }
+
+    #product-detail .detail-img img {
+      max-width: 100%;
+    }
+
+    #product-detail .detail-info h2 {
+      font-size: 1.5rem;
+    }
+
+    .related-products .related-title {
+      font-size: 1.5rem;
+    }
+
+    .related-swiper .swiper-slide {
+      width: 240px !important;
+      height: 320px;
+    }
+  }
+</style>
 
 </html>

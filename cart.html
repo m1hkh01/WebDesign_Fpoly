@@ -15,6 +15,7 @@
     <!-- Styles -->
     <link href="style/neuglass.css" rel="stylesheet">
     <link href="style/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,
@@ -41,7 +42,7 @@
 
     <!-- Header -->
     <div id="header"></div>
-<br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br>
     <!-- Cart Section -->
     <section class="products" id="cart">
         <h2 class="section-title">YOUR CART</h2>
@@ -90,5 +91,34 @@
         });
     </script>
 </body>
+<!-- --- Thêm vào cart.html: chèn ngay trước </body> --- -->
+<script>
+    (function () {
+        const CART_KEY = "cartItems";      // <--- đổi tên nếu app.js bạn dùng key khác
+        const CHECKOUT_KEY = "checkoutCart";
+
+        const checkoutBtn = document.getElementById("checkout-btn");
+        if (!checkoutBtn) return;
+
+        checkoutBtn.addEventListener("click", () => {
+            const cartItems = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+
+            if (!Array.isArray(cartItems) || cartItems.length === 0) {
+                alert("🛒 Your cart is empty!");
+                return;
+            }
+
+            // Lưu bản copy cho trang checkout dùng
+            localStorage.setItem(CHECKOUT_KEY, JSON.stringify(cartItems));
+
+            // (Tùy chọn) bạn có thể lưu tổng tiền nếu muốn:
+            // const total = cartItems.reduce((s,item) => s + (item.price || 0) * (item.quantity || 1), 0);
+            // localStorage.setItem("checkoutTotal", JSON.stringify(total));
+
+            // Chuyển sang trang checkout
+            window.location.href = "checkout.html";
+        });
+    })();
+</script>
 
 </html>
