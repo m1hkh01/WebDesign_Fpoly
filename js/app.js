@@ -134,32 +134,46 @@ document.addEventListener("DOMContentLoaded", () => {
 // =======================
 document.addEventListener("DOMContentLoaded", () => {
   const detailContainer = document.getElementById("product-detail");
-  if (detailContainer) {
-    const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+  if (!detailContainer) return;
 
-    if (!selectedProduct) {
-      detailContainer.innerHTML = "<p>No product selected.</p>";
+  const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+  if (!selectedProduct) {
+    detailContainer.innerHTML = "<p>No product selected.</p>";
+    return;
+  }
+
+  detailContainer.innerHTML = `
+    <div class="detail-img">
+      <img src="${selectedProduct.img}" alt="${selectedProduct.name}">
+    </div>
+    <div class="detail-info">
+      <h2>${selectedProduct.name}</h2>
+      <p class="price">${selectedProduct.price.toLocaleString("vi-VN")} VND</p>
+      <button id="btn-add-detail">Add to Cart</button>
+    </div>
+  `;
+
+  // ✅ Lấy người dùng hiện tại
+  const CURRENT_KEY = "ss_currentUser";
+  function getCurrentUser() {
+    const userData = localStorage.getItem(CURRENT_KEY);
+    return userData ? JSON.parse(userData) : null;
+  }
+
+  // ✅ Gán sự kiện cho nút Add to Cart
+  document.getElementById("btn-add-detail").addEventListener("click", () => {
+    const currentUser = getCurrentUser();
+
+    // Nếu chưa đăng nhập thì chặn + chuyển hướng
+    if (!currentUser) {
+      alert("⚠️ Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!");
+      window.location.href = "login.html";
       return;
     }
 
-    detailContainer.innerHTML = `
-      <div class="detail-img">
-        <img src="${selectedProduct.img}" alt="${selectedProduct.name}">
-      </div>
-      <div class="detail-info">
-        <h2>${selectedProduct.name}</h2>
-        <p class="price">${selectedProduct.price.toLocaleString("vi-VN")} VND</p>
-        <button id="btn-add-detail">Add to Cart</button>
-      </div>
-    `;
-
-    document.getElementById("btn-add-detail").addEventListener("click", () => {
-      addToCart(selectedProduct);
-    });
-
-    // Render Other Products (exclude current product)
-    renderRelatedProducts(selectedProduct.name);
-  }
+    // Nếu đã đăng nhập => thêm vào giỏ hàng
+    addToCart(selectedProduct);
+  });
 });
 
 // =======================
