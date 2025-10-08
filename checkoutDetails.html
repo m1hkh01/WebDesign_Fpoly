@@ -19,10 +19,177 @@
     <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200"><circle cx="600" cy="600" r="600" fill="white"/><path d="M245.8075 717.62406c-29.79588-1.1837-54.1734-9.3368-73.23459-24.4796-3.63775-2.8928-12.30611-11.5663-15.21427-15.2245-7.72958-9.7193-12.98467-19.1785-16.48977-29.6734-10.7857-32.3061-5.23469-74.6989 15.87753-121.2243 18.0765-39.8316 45.96932-79.3366 94.63252-134.0508 7.16836-8.0511 28.51526-31.5969 28.65302-31.5969.051 0-1.11225 2.0153-2.57652 4.4694-12.65304 21.1938-23.47957 46.158-29.37751 67.7703-9.47448 34.6785-8.33163 64.4387 3.34693 87.5151 8.05611 15.898 21.86731 29.6684 37.3979 37.2806 27.18874 13.3214 66.9948 14.4235 115.60699 3.2245 3.34694-.7755 169.19363-44.801 368.55048-97.8366 199.35686-53.0408 362.49439-96.4029 362.51989-96.3672.056.046-463.16259 198.2599-703.62654 301.0914-38.08158 16.2806-48.26521 20.3928-66.16827 26.6785-45.76525 16.0714-86.76008 23.7398-119.89779 22.4235z" fill="black"/></svg>'>
     
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* ===== FLOATING PARTICLES ===== */
+        .particles-container {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(0, 255, 153, 0.6);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+            box-shadow: 0 0 15px rgba(0, 255, 153, 0.8);
+        }
+
+        .particle:nth-child(1) {
+            width: 6px;
+            height: 6px;
+            left: 15%;
+            animation-delay: 0s;
+            animation-duration: 16s;
+        }
+
+        .particle:nth-child(2) {
+            width: 4px;
+            height: 4px;
+            left: 35%;
+            animation-delay: 3s;
+            animation-duration: 19s;
+        }
+
+        .particle:nth-child(3) {
+            width: 5px;
+            height: 5px;
+            left: 55%;
+            animation-delay: 6s;
+            animation-duration: 21s;
+        }
+
+        .particle:nth-child(4) {
+            width: 4px;
+            height: 4px;
+            left: 75%;
+            animation-delay: 9s;
+            animation-duration: 18s;
+        }
+
+        .particle:nth-child(5) {
+            width: 6px;
+            height: 6px;
+            left: 85%;
+            animation-delay: 12s;
+            animation-duration: 17s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(90vh) translateX(30px) scale(1);
+            }
+            50% {
+                transform: translateY(50vh) translateX(-50px) scale(1.3);
+            }
+            90% {
+                opacity: 1;
+                transform: translateY(10vh) translateX(70px) scale(0.9);
+            }
+            100% {
+                transform: translateY(-10vh) translateX(120px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* ===== SUCCESS CHECKMARK ANIMATION ===== */
+        .checkmark-circle {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            margin: 0 auto 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 255, 153, 0.2), rgba(112, 203, 115, 0.2));
+            border: 4px solid #00ff99;
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0) rotate(-180deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .checkmark-path {
+            stroke: #00ff99;
+            stroke-width: 6;
+            stroke-linecap: round;
+            fill: none;
+            stroke-dasharray: 150;
+            stroke-dashoffset: 150;
+            animation: drawCheck 0.8s ease-out 0.3s forwards;
+        }
+
+        @keyframes drawCheck {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* ===== CONFETTI ANIMATION ===== */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            animation: confettiFall 3s ease-out forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
         }
 
         .success-section {
@@ -31,6 +198,8 @@
             align-items: center;
             justify-content: center;
             padding: 120px 20px 60px;
+            position: relative;
+            z-index: 2;
         }
 
         .success-card {
@@ -42,12 +211,35 @@
             width: 100%;
             box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
             animation: fadeIn 0.7s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 153, 0.2);
+        }
+
+        .success-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 153, 0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(15px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -60,18 +252,51 @@
             font-size: 28px;
             margin-bottom: 10px;
             text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: slideInDown 0.6s ease-out 0.3s both;
+            text-shadow: 0 0 20px rgba(0, 255, 153, 0.5);
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .success-card > p {
             color: #ccc;
             margin-bottom: 30px;
             text-align: center;
+            position: relative;
+            z-index: 1;
+            animation: slideInDown 0.6s ease-out 0.4s both;
+            font-size: 16px;
         }
 
         .order-summary {
             text-align: left;
             margin: 0 auto;
             max-width: 500px;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 0.6s ease-out 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .order-summary h3 {
@@ -79,6 +304,25 @@
             margin-bottom: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 6px;
+            font-size: 20px;
+            position: relative;
+        }
+
+        .order-summary h3::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00ff99, #70cb73);
+            animation: expandLine 1s ease-out 0.8s forwards;
+        }
+
+        @keyframes expandLine {
+            to {
+                width: 100%;
+            }
         }
 
         .order-item {
@@ -87,6 +331,15 @@
             margin: 6px 0;
             font-size: 15px;
             color: #ccc;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .order-item:hover {
+            background: rgba(0, 255, 153, 0.05);
+            transform: translateX(5px);
         }
 
         .order-item span {
@@ -99,6 +352,20 @@
             color: #00ff99;
             text-align: right;
             font-size: 18px;
+            padding: 15px;
+            background: rgba(0, 255, 153, 0.1);
+            border-radius: 12px;
+            animation: pulse 2s ease-in-out infinite;
+            text-shadow: 0 0 15px rgba(0, 255, 153, 0.6);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 153, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(0, 255, 153, 0);
+            }
         }
 
         .back-btn {
@@ -111,17 +378,96 @@
             padding: 12px 28px;
             font-size: 16px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: block;
             width: 100%;
             max-width: 300px;
             margin-left: auto;
             margin-right: auto;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out 0.7s both;
+        }
+
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .back-btn:hover::before {
+            width: 400px;
+            height: 400px;
         }
 
         .back-btn:hover {
-            opacity: 0.85;
-            transform: scale(1.05);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 255, 153, 0.4);
+        }
+
+        .back-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Success Icon Glow */
+        .icon-glow {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(0, 255, 153, 0.3) 0%, transparent 70%);
+            animation: glowPulse 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .success-card {
+                padding: 30px 25px;
+            }
+
+            .success-card h2 {
+                font-size: 24px;
+            }
+
+            .checkmark-circle {
+                width: 120px;
+                height: 120px;
+            }
+
+            .checkmark {
+                width: 60px;
+                height: 60px;
+            }
+
+            .order-summary {
+                max-width: 100%;
+            }
+
+            .back-btn {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
@@ -140,6 +486,18 @@
         <div class="neural-line"></div>
     </div>
 
+    <!-- Floating Particles -->
+    <div class="particles-container">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Confetti Container -->
+    <div class="confetti-container" id="confetti-container"></div>
+
     <br><br>
     <!-- Header -->
     <div id="header"></div>
@@ -147,6 +505,14 @@
     <!-- Success Section -->
     <section class="success-section">
         <div class="success-card">
+            <div style="position: relative;">
+                <div class="icon-glow"></div>
+                <div class="checkmark-circle">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <path class="checkmark-path" d="M14 27l7.5 7.5L38 18"/>
+                    </svg>
+                </div>
+            </div>
             <h2>✅ Thank you for your purchase!</h2>
             <p>Your order has been placed successfully.</p>
             <div id="order-summary" class="order-summary"></div>
@@ -183,7 +549,31 @@
     </script>
 
     <script>
+        // Confetti Animation
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#00ff99', '#70cb73', '#ffc107', '#ff9800', '#fff'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                container.appendChild(confetti);
+            }
+
+            // Remove confetti after animation
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
+            // Trigger confetti
+            createConfetti();
+
             const orderData = JSON.parse(localStorage.getItem("latestOrder"));
             const container = document.getElementById("order-summary");
 
