@@ -57,9 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const container = document.getElementById("product-container");
   const loadMoreBtn = document.getElementById("load-more");
   const productsPerLoad = 6; // mỗi lần load thêm 6 sp
-  let currentIndex = 0;
+  let currentIndex = productsPerLoad; // 👉 bắt đầu từ 6 (đã hiển thị 6 cái đầu)
+  let expanded = false; // 👉 trạng thái: false = chưa mở hết, true = đã mở hết
 
-  // 🔹 Lấy người dùng hiện tại trong localStorage
   const CURRENT_KEY = "ss_currentUser";
 
   function getCurrentUser() {
@@ -67,10 +67,11 @@ document.addEventListener("DOMContentLoaded", () => {
     return userData ? JSON.parse(userData) : null;
   }
 
-  function renderProducts() {
-    const nextProducts = products.slice(currentIndex, currentIndex + productsPerLoad);
+  function renderProducts(limit) {
+    container.innerHTML = ""; // xoá cũ trước khi render lại
+    const visibleProducts = products.slice(0, limit);
 
-    nextProducts.forEach(product => {
+    visibleProducts.forEach(product => {
       const card = document.createElement("div");
       card.className = "card";
       card.innerHTML = `
@@ -96,34 +97,62 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
-        const user = getCurrentUser(); // 👉 kiểm tra đăng nhập
+        const user = getCurrentUser();
         if (!user) {
-          alert("⚠️ Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
+          alert("⚠️ You need to log in to add products to cart!");
           window.location.href = "login.html";
           return;
         }
-        // ✅ nếu có user thì thêm vào giỏ hàng
         addToCart(product);
       });
 
       container.appendChild(card);
     });
+  }
 
-    currentIndex += productsPerLoad;
-
-    // Ẩn nút nếu đã hiển thị hết sản phẩm
+ // 👉 Hàm cập nhật text và trạng thái nút
+  function updateButton() {
     if (currentIndex >= products.length) {
-      loadMoreBtn.style.display = "none";
+      // Đã xem hết → Hiện nút "Thu gọn"
+      loadMoreBtn.textContent = "Hide";
+      expanded = true;
+    } else {
+      // Chưa xem hết → Hiện nút "Xem thêm"
+      loadMoreBtn.textContent = "See More";
+      expanded = false;
     }
   }
 
   // Mặc định hiển thị 6 sản phẩm đầu tiên
   if (container && products.length > 0) {
-    renderProducts();
+    renderProducts(currentIndex);
+    updateButton();
   }
 
-  // Khi nhấn nút Xem thêm
-  loadMoreBtn.addEventListener("click", renderProducts);
+  // 👉 Khi nhấn nút
+  loadMoreBtn.addEventListener("click", () => {
+    if (expanded) {
+      // Nếu đang mở hết → Thu gọn về 6 sản phẩm đầu
+      currentIndex = productsPerLoad;
+      renderProducts(currentIndex);
+      expanded = false;
+      loadMoreBtn.textContent = "See More";
+      
+      // 👉 Cuộn mượt lên đầu section sản phẩm
+      document.getElementById("product").scrollIntoView({ 
+        behavior: "smooth", 
+        block: "start" 
+      });
+    } else {
+      // Nếu chưa mở hết → Tăng thêm 6 sản phẩm
+      currentIndex += productsPerLoad;
+      if (currentIndex > products.length) {
+        currentIndex = products.length;
+      }
+      renderProducts(currentIndex);
+      updateButton();
+    }
+  });
 
   updateCartCount();
 });
@@ -166,7 +195,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Nếu chưa đăng nhập thì chặn + chuyển hướng
     if (!currentUser) {
-      alert("⚠️ Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!");
+      alert("⚠️ Please login to add products to cart!");
       window.location.href = "login.html";
       return;
     }
@@ -334,3 +363,126 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderCart();
 });
+    const CURRENT_KEY = 'ss_currentUser';
+
+    async function loadHTML(id, file) {
+        const response = await fetch(file);
+        document.getElementById(id).innerHTML = await response.text();
+
+        // 👉 Sau khi load header xong, setup UI ngay
+        if (id === "header") {
+            setTimeout(() => {
+                setupHeaderAuthUI();
+                setupSmartHeader();
+            }, 100);
+        }
+    }
+
+    // =============================
+    // 🔹 Setup Header Auth UI
+    // =============================
+    function setupHeaderAuthUI() {
+        const currentUser = JSON.parse(localStorage.getItem(CURRENT_KEY));
+        const accountDropdown = document.getElementById("account-dropdown");
+        const accountLink = document.getElementById("account-link");
+        const mobileAccountLink = document.getElementById("mobile-account-link");
+
+        console.log("🔍 Setup Header Auth UI");
+        console.log("Current User:", currentUser);
+        console.log("Account Link Element:", accountLink);
+
+        if (!accountDropdown) {
+            console.error("❌ Account dropdown not found!");
+            return;
+        }
+
+        const dropContent = accountDropdown.querySelector(".dropdown-content");
+
+        if (currentUser) {
+            // ✅ Đã đăng nhập → Hiện nút Account
+            if (accountLink) {
+                accountLink.style.display = "block";
+                console.log("✅ Desktop Account link shown");
+            } else {
+                console.error("❌ Account link element not found!");
+            }
+
+            if (mobileAccountLink) {
+                mobileAccountLink.style.display = "block";
+                console.log("✅ Mobile Account link shown");
+            }
+
+            dropContent.innerHTML = `
+                <div style="padding:10px 15px; border-bottom:1px solid rgba(255,255,255,0.2); color:white;">
+                    Welcome, <b>${currentUser.fullName || currentUser.email.split("@")[0]}</b>
+                </div>
+                <button id="logoutBtn" style="width:100%; padding:8px 0; background:#dc3545; color:white; border:none; cursor:pointer; border-radius:0 0 6px 6px;">
+                    Logout
+                </button>
+            `;
+        } else {
+            // ❌ Chưa đăng nhập → Ẩn nút Account
+            if (accountLink) {
+                accountLink.style.display = "none";
+                console.log("❌ Desktop Account link hidden");
+            }
+            if (mobileAccountLink) {
+                mobileAccountLink.style.display = "none";
+                console.log("❌ Mobile Account link hidden");
+            }
+
+            dropContent.innerHTML = `
+                <a href="login.html" style="display:block; padding:10px 15px;">Login</a>
+                <a href="login.html?mode=signup" style="display:block; padding:10px 15px;">Sign Up</a>
+            `;
+        }
+
+        dropContent.style.display = "none";
+
+        // Hover events
+        accountDropdown.addEventListener("mouseenter", () => {
+            dropContent.style.display = "block";
+        });
+
+        accountDropdown.addEventListener("mouseleave", () => {
+            dropContent.style.display = "none";
+        });
+
+        // Logout button
+        const logoutBtn = dropContent.querySelector("#logoutBtn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", () => {
+                if (confirm("Logout?")) {
+                    localStorage.removeItem(CURRENT_KEY);
+                    location.reload();
+                }
+            });
+        }
+    }
+
+    // =============================
+    // 🔹 Smart Header (ẩn/hiện khi scroll)
+    // =============================
+    function setupSmartHeader() {
+        const headerElement = document.querySelector('header.glass');
+        if (!headerElement) return;
+
+        let lastScrollY = window.scrollY;
+        const scrollThreshold = 100;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > lastScrollY && currentScrollY > scrollThreshold) {
+                headerElement.classList.add('header-hidden');
+            } else if (currentScrollY < lastScrollY || currentScrollY < scrollThreshold) {
+                headerElement.classList.remove('header-hidden');
+            }
+
+            lastScrollY = currentScrollY;
+        });
+    }
+
+    // ✅ Load header và footer
+    loadHTML("header", "header.html");
+    loadHTML("footer", "footer.html");

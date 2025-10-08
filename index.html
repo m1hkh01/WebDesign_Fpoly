@@ -263,29 +263,102 @@
         const response = await fetch(file);
         document.getElementById(id).innerHTML = await response.text();
 
-        // 👉 Nếu là header thì sau khi load xong ta gắn logic Logout
+        // 👉 Sau khi load header xong, setup UI ngay
         if (id === "header") {
-            setupAuthUI();
-            // ✅ Thêm logic ẩn/hiện header sau khi nó đã được tải vào DOM
-            setupSmartHeader();
+            setTimeout(() => {
+                setupHeaderAuthUI();
+                setupSmartHeader();
+            }, 100);
         }
     }
 
-    // ✅ Load header và footer
-    loadHTML("header", "header.html");
-    loadHTML("footer", "footer.html");
+    // =============================
+    // 🔹 Setup Header Auth UI
+    // =============================
+    function setupHeaderAuthUI() {
+        const currentUser = JSON.parse(localStorage.getItem(CURRENT_KEY));
+        const accountDropdown = document.getElementById("account-dropdown");
+        const accountLink = document.getElementById("account-link");
+        const mobileAccountLink = document.getElementById("mobile-account-link");
+
+        console.log("🔍 Setup Header Auth UI");
+        console.log("Current User:", currentUser);
+        console.log("Account Link Element:", accountLink);
+
+        if (!accountDropdown) {
+            console.error("❌ Account dropdown not found!");
+            return;
+        }
+
+        const dropContent = accountDropdown.querySelector(".dropdown-content");
+
+        if (currentUser) {
+            // ✅ Đã đăng nhập → Hiện nút Account
+            if (accountLink) {
+                accountLink.style.display = "block";
+                console.log("✅ Desktop Account link shown");
+            } else {
+                console.error("❌ Account link element not found!");
+            }
+
+            if (mobileAccountLink) {
+                mobileAccountLink.style.display = "block";
+                console.log("✅ Mobile Account link shown");
+            }
+
+            dropContent.innerHTML = `
+                <div style="padding:10px 15px; border-bottom:1px solid rgba(255,255,255,0.2); color:white;">
+                    Welcome, <b>${currentUser.fullName || currentUser.email.split("@")[0]}</b>
+                </div>
+                <button id="logoutBtn" style="width:100%; padding:8px 0; background:#dc3545; color:white; border:none; cursor:pointer; border-radius:0 0 6px 6px;">
+                    Logout
+                </button>
+            `;
+        } else {
+            // ❌ Chưa đăng nhập → Ẩn nút Account
+            if (accountLink) {
+                accountLink.style.display = "none";
+                console.log("❌ Desktop Account link hidden");
+            }
+            if (mobileAccountLink) {
+                mobileAccountLink.style.display = "none";
+                console.log("❌ Mobile Account link hidden");
+            }
+
+            dropContent.innerHTML = `
+                <a href="login.html" style="display:block; padding:10px 15px;">Login</a>
+                <a href="login.html?mode=signup" style="display:block; padding:10px 15px;">Sign Up</a>
+            `;
+        }
+
+        dropContent.style.display = "none";
+
+        // Hover events
+        accountDropdown.addEventListener("mouseenter", () => {
+            dropContent.style.display = "block";
+        });
+
+        accountDropdown.addEventListener("mouseleave", () => {
+            dropContent.style.display = "none";
+        });
+
+        // Logout button
+        const logoutBtn = dropContent.querySelector("#logoutBtn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", () => {
+                if (confirm("Logout?")) {
+                    localStorage.removeItem(CURRENT_KEY);
+                    location.reload();
+                }
+            });
+        }
+    }
 
     // =============================
-    // 🔹 HÀM KIỂM TRA LOGIN + LOGOUT (Giữ nguyên)
-    // =============================
-
-
-    // =============================
-    // 🔹 HÀM ẨN/HIỆN HEADER KHI CUỘN CHUỘT
+    // 🔹 Smart Header (ẩn/hiện khi scroll)
     // =============================
     function setupSmartHeader() {
-        // Target the <header> element inside the #header div
-        const headerElement = document.querySelector('header.glass'); // TÌM ĐÚNG header
+        const headerElement = document.querySelector('header.glass');
         if (!headerElement) return;
 
         let lastScrollY = window.scrollY;
@@ -294,18 +367,17 @@
         window.addEventListener('scroll', () => {
             const currentScrollY = window.scrollY;
 
-            // Cuộn xuống (Hide)
             if (currentScrollY > lastScrollY && currentScrollY > scrollThreshold) {
                 headerElement.classList.add('header-hidden');
-            }
-            // Cuộn lên hoặc gần đỉnh trang (Show)
-            else if (currentScrollY < lastScrollY || currentScrollY < scrollThreshold) {
+            } else if (currentScrollY < lastScrollY || currentScrollY < scrollThreshold) {
                 headerElement.classList.remove('header-hidden');
             }
 
             lastScrollY = currentScrollY;
         });
     }
-    // ...
+
+    // ✅ Load header và footer
     loadHTML("header", "header.html");
+    loadHTML("footer", "footer.html");
 </script>
