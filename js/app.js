@@ -2,17 +2,17 @@
 // Product Data (global)
 // =======================
 const products = [
-  { name: "Nike Air Max", img: "http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png", price: 2500000 },
-  { name: "Nike Zoom", img: "http://pngimg.com/uploads/running_shoes/running_shoes_PNG5783.png", price: 2800000 },
-  { name: "Nike Free", img: "http://pngimg.com/uploads/running_shoes/running_shoes_PNG5784.png", price: 2200000 },
-  { name: "Nike Revolution", img: "http://pngimg.com/uploads/running_shoes/running_shoes_PNG5785.png", price: 2600000 },
-  { name: "Nike Pegasus", img: "http://pngimg.com/uploads/running_shoes/running_shoes_PNG5786.png", price: 3000000 },
-  { name: "Nike Epic React", img: "http://pngimg.com/uploads/running_shoes/running_shoes_PNG5787.png", price: 3200000 },
-  { name: "Nike Air Force", img: "http://pngimg.com/uploads/running_shoes/running_shoes_PNG5788.png", price: 3500000 },
-  { name: "Nike VaporMax", img: "http://pngimg.com/uploads/running_shoes/running_shoes_PNG5789.png", price: 4000000 },
-  { name: "Nike Infinity Run", img: "http://pngimg.com/uploads/running_shoes/running_shoes_PNG5790.png", price: 2700000 },
-  { name: "Nike Metcon", img: "http://pngimg.com/uploads/running_shoes/running_shoes_PNG5791.png", price: 2900000 },
-  { name: "Nike Dunk", img: "https://pngimg.com/uploads/running_shoes/running_shoes_PNG5795.png", price: 3100000 }
+  { name: "Nike Air Max", img: "images/s1.png", price: 2500000 },
+  { name: "Nike Zoom", img: "images/s2.png", price: 2800000 },
+  { name: "Nike Free", img: "images/s3.png", price: 2200000 },
+  { name: "Nike Revolution", img: "images/s4.png", price: 2600000 },
+  { name: "Nike Pegasus", img: "images/s5.png", price: 3000000 },
+  { name: "Nike Epic React", img: "images/s6.png", price: 3200000 },
+  { name: "Nike Air Force", img: "images/s7.png", price: 3500000 },
+  { name: "Nike VaporMax", img: "images/s8.png", price: 4000000 },
+  { name: "Nike Infinity Run", img: "images/s9.png", price: 2700000 },
+  { name: "Nike Metcon", img: "images/s10.png", price: 2900000 },
+  { name: "Nike Dunk", img: "images/s11.png", price: 3100000 }
 ];
 
 // =======================

@@ -1,139 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order Success - Nike Store</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Success - Nike Store</title>
+    
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link href="style/neuglass.css" rel="stylesheet">
+    <link href="style/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200"><circle cx="600" cy="600" r="600" fill="white"/><path d="M245.8075 717.62406c-29.79588-1.1837-54.1734-9.3368-73.23459-24.4796-3.63775-2.8928-12.30611-11.5663-15.21427-15.2245-7.72958-9.7193-12.98467-19.1785-16.48977-29.6734-10.7857-32.3061-5.23469-74.6989 15.87753-121.2243 18.0765-39.8316 45.96932-79.3366 94.63252-134.0508 7.16836-8.0511 28.51526-31.5969 28.65302-31.5969.051 0-1.11225 2.0153-2.57652 4.4694-12.65304 21.1938-23.47957 46.158-29.37751 67.7703-9.47448 34.6785-8.33163 64.4387 3.34693 87.5151 8.05611 15.898 21.86731 29.6684 37.3979 37.2806 27.18874 13.3214 66.9948 14.4235 115.60699 3.2245 3.34694-.7755 169.19363-44.801 368.55048-97.8366 199.35686-53.0408 362.49439-96.4029 362.51989-96.3672.056.046-463.16259 198.2599-703.62654 301.0914-38.08158 16.2806-48.26521 20.3928-66.16827 26.6785-45.76525 16.0714-86.76008 23.7398-119.89779 22.4235z" fill="black"/></svg>'>
+    
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-  <link href="style/neuglass.css" rel="stylesheet">
-  <link href="style/style.css" rel="stylesheet">
+        .success-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 20px 60px;
+        }
 
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at top left, #1a1a1a, #0c0c0c);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      margin: 0;
-      padding: 60px 20px;
-      text-align: center;
-    }
+        .success-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 22px;
+            padding: 40px 50px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.7s ease;
+        }
 
-    .success-card {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(20px);
-      border-radius: 22px;
-      padding: 40px 50px;
-      max-width: 700px;
-      width: 100%;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
-      animation: fadeIn 0.7s ease;
-    }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        .success-card h2 {
+            color: #00ff99;
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
 
-    h2 {
-      color: #00ff99;
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
+        .success-card > p {
+            color: #ccc;
+            margin-bottom: 30px;
+            text-align: center;
+        }
 
-    p {
-      color: #ccc;
-      margin-bottom: 30px;
-    }
+        .order-summary {
+            text-align: left;
+            margin: 0 auto;
+            max-width: 500px;
+        }
 
-    .order-summary {
-      text-align: left;
-      margin: 0 auto;
-      max-width: 500px;
-    }
+        .order-summary h3 {
+            color: #00ff99;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 6px;
+        }
 
-    .order-summary h3 {
-      color: #00ff99;
-      margin-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding-bottom: 6px;
-    }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 6px 0;
+            font-size: 15px;
+            color: #ccc;
+        }
 
-    .order-item {
-      display: flex;
-      justify-content: space-between;
-      margin: 6px 0;
-      font-size: 15px;
-    }
+        .order-item span {
+            word-break: break-word;
+        }
 
-    .total {
-      margin-top: 10px;
-      font-weight: 700;
-      color: #00ff99;
-      text-align: right;
-    }
+        .total {
+            margin-top: 10px;
+            font-weight: 700;
+            color: #00ff99;
+            text-align: right;
+            font-size: 18px;
+        }
 
-    .back-btn {
-      margin-top: 30px;
-      background: linear-gradient(90deg, #00ff99, #70cb73);
-      border: none;
-      border-radius: 12px;
-      color: #000;
-      font-weight: 700;
-      padding: 12px 28px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+        .back-btn {
+            margin-top: 30px;
+            background: linear-gradient(90deg, #00ff99, #70cb73);
+            border: none;
+            border-radius: 12px;
+            color: #000;
+            font-weight: 700;
+            padding: 12px 28px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
-    .back-btn:hover {
-      opacity: 0.85;
-      transform: scale(1.05);
-    }
-  </style>
+        .back-btn:hover {
+            opacity: 0.85;
+            transform: scale(1.05);
+        }
+    </style>
 </head>
-
 <body>
-  <div class="success-card">
-    <h2>✅ Thank you for your purchase!</h2>
-    <p>Your order has been placed successfully.</p>
+    <!-- Background effects -->
+    <div class="neural-background"></div>
+    <div class="geometric-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <div class="neural-lines">
+        <div class="neural-line"></div>
+        <div class="neural-line"></div>
+        <div class="neural-line"></div>
+    </div>
 
-    <div id="order-summary" class="order-summary"></div>
+    <br><br>
+    <!-- Header -->
+    <div id="header"></div>
 
-    <button class="back-btn" onclick="window.location.href='index.html'">Back to Home</button>
-  </div>
+    <!-- Success Section -->
+    <section class="success-section">
+        <div class="success-card">
+            <h2>✅ Thank you for your purchase!</h2>
+            <p>Your order has been placed successfully.</p>
+            <div id="order-summary" class="order-summary"></div>
+            <button class="back-btn" onclick="window.location.href='index.html'">Back to Home</button>
+        </div>
+    </section>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const orderData = JSON.parse(localStorage.getItem("latestOrder"));
-      const container = document.getElementById("order-summary");
+    <!-- Footer -->
+    <div id="footer"></div>
 
-      if (!orderData) {
-        container.innerHTML = "<p>No order found.</p>";
-        return;
-      }
+    <!-- Scripts -->
+    <script src="js/neuglass.js"></script>
+    <script src="js/app.js"></script>
+    
+    <script>
+        async function loadHTML(id, file) {
+            const res = await fetch(file);
+            document.getElementById(id).innerHTML = await res.text();
+        }
+        loadHTML("header", "header.html");
+        loadHTML("footer", "footer.html");
+    </script>
 
-      container.innerHTML = `
-        <h3>Order Summary</h3>
-        <div class="order-item"><span><b>Order ID:</b></span><span>${orderData.id}</span></div>
-        <div class="order-item"><span><b>Date:</b></span><span>${orderData.date}</span></div>
-        <div class="order-item"><span><b>Name:</b></span><span>${orderData.customer.name}</span></div>
-        <div class="order-item"><span><b>Email:</b></span><span>${orderData.customer.email}</span></div>
-        <div class="order-item"><span><b>Address:</b></span><span>${orderData.customer.address}</span></div>
-        <hr style="border-color: rgba(255,255,255,0.1); margin: 10px 0;">
-        ${orderData.items.map(it => `
-          <div class="order-item">
-            <span>${it.name} × ${it.quantity}</span>
-            <span>${(it.price * it.quantity).toLocaleString()} VND</span>
-          </div>
-        `).join("")}
-        <div class="total">Total: ${orderData.total.toLocaleString()} VND</div>
-      `;
-    });
-  </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            if (toggle && navLinks) {
+                toggle.addEventListener('click', () => {
+                    navLinks.classList.toggle('show');
+                });
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const orderData = JSON.parse(localStorage.getItem("latestOrder"));
+            const container = document.getElementById("order-summary");
+
+            if (!orderData) {
+                container.innerHTML = "<p style='text-align:center; color:#ccc;'>No order found.</p>";
+                return;
+            }
+
+            container.innerHTML = `
+                <h3>Order Summary</h3>
+                <div class="order-item"><span><b>Order ID:</b></span><span>${orderData.id}</span></div>
+                <div class="order-item"><span><b>Date:</b></span><span>${orderData.date}</span></div>
+                <div class="order-item"><span><b>Name:</b></span><span>${orderData.customer.name}</span></div>
+                <div class="order-item"><span><b>Email:</b></span><span>${orderData.customer.email}</span></div>
+                <div class="order-item"><span><b>Address:</b></span><span>${orderData.customer.address}</span></div>
+                <hr style="border-color: rgba(255,255,255,0.1); margin: 10px 0;">
+                ${orderData.items.map(it => `
+                    <div class="order-item">
+                        <span>${it.name} × ${it.quantity}</span>
+                        <span>${(it.price * it.quantity).toLocaleString()} VND</span>
+                    </div>
+                `).join("")}
+                <div class="total">Total: ${orderData.total.toLocaleString()} VND</div>
+            `;
+        });
+    </script>
 </body>
 </html>

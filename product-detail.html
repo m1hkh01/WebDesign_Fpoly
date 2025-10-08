@@ -39,6 +39,15 @@
     <div class="neural-line"></div>
   </div>
 
+  <!-- Floating Particles Animation -->
+  <div class="particles-container">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
   <!-- Header -->
   <div id="header"></div>
 
@@ -61,9 +70,6 @@
 
   <!-- Scripts -->
   <!-- Swiper JS -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="js/neuglass.js"></script>
-  <script src="js/app.js"></script>
   <script>
     async function loadHTML(id, file) {
       const res = await fetch(file);
@@ -71,9 +77,126 @@
     }
     loadHTML("header", "header.html");
     loadHTML("footer", "footer.html");
-  </script>
+    </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+    if (selectedProduct) {
+      // Hiển thị chi tiết sản phẩm
+      const detailContainer = document.getElementById("product-detail");
+      detailContainer.innerHTML = `
+        <div class="detail-img">
+          <div class="image-glow"></div>
+          <img src="${selectedProduct.img}" alt="${selectedProduct.name}">
+        </div>
+        <div class="detail-info">
+          <div class="product-badge">New Arrival</div>
+          <h2>${selectedProduct.name}</h2>
+          <p class="price">${selectedProduct.price.toLocaleString("vi-VN")} VND</p>
+          <button id="btn-add-detail">
+            <span class="btn-text">Add to Cart</span>
+            <span class="btn-icon">→</span>
+          </button>
+        </div>
+      `;
+
+      // Add animation to button
+      const btn = document.getElementById("btn-add-detail");
+      btn.addEventListener("click", function() {
+        this.classList.add("btn-clicked");
+        setTimeout(() => this.classList.remove("btn-clicked"), 600);
+      });
+
+      // Gọi phần related products
+      renderRelatedProducts(selectedProduct.name);
+    }
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/neuglass.js"></script>
+<script src="js/app.js"></script>
+
 </body>
 <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* ===== FLOATING PARTICLES ===== */
+  .particles-container {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: float 20s infinite ease-in-out;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+
+  .particle:nth-child(1) {
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 15s;
+  }
+
+  .particle:nth-child(2) {
+    left: 30%;
+    animation-delay: 2s;
+    animation-duration: 18s;
+  }
+
+  .particle:nth-child(3) {
+    left: 50%;
+    animation-delay: 4s;
+    animation-duration: 20s;
+  }
+
+  .particle:nth-child(4) {
+    left: 70%;
+    animation-delay: 6s;
+    animation-duration: 22s;
+  }
+
+  .particle:nth-child(5) {
+    left: 90%;
+    animation-delay: 8s;
+    animation-duration: 17s;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(100vh) translateX(0) scale(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+      transform: translateY(90vh) translateX(20px) scale(1);
+    }
+    50% {
+      transform: translateY(50vh) translateX(-30px) scale(1.2);
+    }
+    90% {
+      opacity: 1;
+      transform: translateY(10vh) translateX(50px) scale(0.8);
+    }
+    100% {
+      transform: translateY(-10vh) translateX(100px) scale(0);
+      opacity: 0;
+    }
+  }
+
   /* ===== PRODUCT DETAIL PAGE ===== */
   .product-detail-wrapper {
     display: flex;
@@ -81,6 +204,8 @@
     align-items: center;
     padding: 100px 20px;
     min-height: 60vh;
+    position: relative;
+    z-index: 2;
   }
 
   #product-detail.glass-card {
@@ -96,6 +221,80 @@
     border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     color: #fff;
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  #product-detail.glass-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    animation: rotate 15s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  #product-detail .detail-img {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: slideInLeft 0.6s ease-out 0.2s both;
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .image-glow {
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    animation: pulse 3s ease-in-out infinite;
+    z-index: 0;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.4;
+    }
+    50% {
+      transform: scale(1.15);
+      opacity: 0.7;
+    }
   }
 
   #product-detail .detail-img img {
@@ -103,6 +302,24 @@
     width: 100%;
     border-radius: 20px;
     object-fit: contain;
+    position: relative;
+    z-index: 1;
+    animation: floatImage 6s ease-in-out infinite;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes floatImage {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-20px) rotate(-3deg);
+    }
+  }
+
+  #product-detail .detail-img:hover img {
+    transform: scale(1.08) rotate(5deg);
   }
 
   #product-detail .detail-info {
@@ -111,19 +328,56 @@
     flex-direction: column;
     justify-content: center;
     gap: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .product-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    background: linear-gradient(135deg, #ffffff, #8a8a8a);
+    color: #000;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-radius: 20px;
+    width: fit-content;
+    animation: slideInRight 0.6s ease-out 0.3s both;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   #product-detail .detail-info h2 {
     font-size: 2rem;
     margin: 0;
     font-weight: 700;
+    animation: slideInRight 0.6s ease-out 0.4s both;
+    background: linear-gradient(135deg, #fff, #ccc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
   }
 
   #product-detail .price {
     font-size: 1.3rem;
     margin: 0;
     font-weight: 500;
-    color: #ffc107;
+    color: #ffffff;
+    animation: slideInRight 0.6s ease-out 0.5s both;
+    text-shadow: 0 0 20px rgba(142, 142, 142, 0.5);
+    font-weight: 700;
   }
 
   #btn-add-detail {
@@ -134,19 +388,59 @@
     border-radius: 12px;
     cursor: pointer;
     font-weight: 600;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     max-width: 200px;
+    position: relative;
+    overflow: hidden;
+    animation: slideInRight 0.6s ease-out 0.6s both;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  #btn-add-detail::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+  }
+
+  #btn-add-detail.btn-clicked::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .btn-icon {
+    transition: transform 0.3s ease;
+    font-size: 18px;
   }
 
   #btn-add-detail:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(255, 255, 255, 0.5);
+  }
+
+  #btn-add-detail:hover .btn-icon {
+    transform: translateX(5px);
+  }
+
+  #btn-add-detail:active {
+    transform: translateY(-1px);
   }
 
   /* ===== RELATED PRODUCTS SECTION ===== */
   .related-products {
     margin-top: 50px;
     padding: 40px 20px 80px;
+    position: relative;
+    z-index: 2;
   }
 
   .related-products .related-title {
@@ -156,6 +450,40 @@
     color: #fff;
     margin-bottom: 50px;
     letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    animation: titleBounce 2s ease-in-out infinite;
+  }
+
+  @keyframes titleBounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .related-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffffff, transparent);
+    animation: expandWidth 2s ease-in-out infinite;
+  }
+
+  @keyframes expandWidth {
+    0%, 100% {
+      width: 100px;
+    }
+    50% {
+      width: 200px;
+    }
   }
 
   /* Swiper Container */
@@ -182,15 +510,33 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 20px;
+    position: relative;
+  }
+
+  .related-swiper .swiper-slide::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .related-swiper .swiper-slide:hover::before {
+    opacity: 1;
   }
 
   .related-swiper .swiper-slide:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: translateY(-15px) scale(1.03);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
     background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 193, 7, 0.5);
   }
 
   .related-swiper .swiper-slide img {
@@ -199,6 +545,12 @@
     object-fit: contain;
     background: transparent;
     margin-bottom: 15px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+  }
+
+  .related-swiper .swiper-slide:hover img {
+    transform: scale(1.12) rotate(-5deg);
   }
 
   .related-swiper .swiper-slide h3 {
@@ -207,14 +559,24 @@
     color: #fff;
     font-weight: 600;
     text-align: center;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s ease;
+  }
+
+  .related-swiper .swiper-slide:hover h3 {
+    color: #ffffff;
   }
 
   .related-swiper .swiper-slide p {
-    color: #ffc107;
+    color: #ffffff;
     font-weight: bold;
     font-size: 16px;
     margin: 0;
     text-align: center;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 10px rgba(130, 130, 130, 0.5);
   }
 
   /* Swiper Pagination */
@@ -222,11 +584,14 @@
     background: #696969;
     transition: all 0.5s ease;
     border-radius: 8px;
+    opacity: 0.7;
   }
 
   .swiper-pagination-bullet-active {
-    background: #ffc107;
+    background: #ffffff;
     width: 30px;
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
   }
 
   /* Mobile Responsive */
@@ -251,6 +616,10 @@
     .related-swiper .swiper-slide {
       width: 240px !important;
       height: 320px;
+    }
+
+    #btn-add-detail {
+      max-width: 100%;
     }
   }
 </style>
