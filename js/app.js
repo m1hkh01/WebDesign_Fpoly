@@ -59,6 +59,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const productsPerLoad = 6; // mỗi lần load thêm 6 sp
   let currentIndex = 0;
 
+  // 🔹 Lấy người dùng hiện tại trong localStorage
+  const CURRENT_KEY = "ss_currentUser";
+
+  function getCurrentUser() {
+    const userData = localStorage.getItem(CURRENT_KEY);
+    return userData ? JSON.parse(userData) : null;
+  }
+
   function renderProducts() {
     const nextProducts = products.slice(currentIndex, currentIndex + productsPerLoad);
 
@@ -88,6 +96,13 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
+        const user = getCurrentUser(); // 👉 kiểm tra đăng nhập
+        if (!user) {
+          alert("⚠️ Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
+          window.location.href = "login.html";
+          return;
+        }
+        // ✅ nếu có user thì thêm vào giỏ hàng
         addToCart(product);
       });
 
