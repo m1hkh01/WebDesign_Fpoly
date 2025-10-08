@@ -26,6 +26,17 @@
 </head>
 
 <body>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const currentUser = localStorage.getItem("ss_currentUser") || localStorage.getItem("currentUser");
+
+            if (!currentUser) {
+                alert("⚠️ Vui lòng đăng nhập để xem giỏ hàng!");
+                window.location.href = "login.html";
+            }
+        });
+    </script>
+
     <!-- Background effects -->
     <div class="neural-background"></div>
     <div class="geometric-shapes">
@@ -85,40 +96,43 @@
         document.addEventListener('DOMContentLoaded', () => {
             const toggle = document.querySelector('.mobile-menu-toggle');
             const navLinks = document.querySelector('.nav-links');
-            toggle.addEventListener('click', () => {
-                navLinks.classList.toggle('show');
-            });
+            if (toggle && navLinks) {
+                toggle.addEventListener('click', () => {
+                    navLinks.classList.toggle('show');
+                });
+            }
         });
     </script>
+    <!-- ✅ Script xử lý nút Proceed to Checkout -->
+    <script>
+        (function () {
+            const CART_KEY = "cartItems";      // <-- key lưu giỏ hàng
+            const CHECKOUT_KEY = "checkoutCart"; // <-- key tạm dùng cho trang checkout
+
+            const checkoutBtn = document.getElementById("checkout-btn");
+            if (!checkoutBtn) return;
+
+            checkoutBtn.addEventListener("click", () => {
+                const cartItems = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+
+                if (!Array.isArray(cartItems) || cartItems.length === 0) {
+                    alert("🛒 Your cart is empty!");
+                    return;
+                }
+
+                // Lưu bản sao cho trang checkout dùng
+                localStorage.setItem(CHECKOUT_KEY, JSON.stringify(cartItems));
+
+                // (Tùy chọn) Lưu tổng tiền
+                // const total = cartItems.reduce((s,item)=>s+(item.price||0)*(item.quantity||1),0);
+                // localStorage.setItem("checkoutTotal", total);
+
+                // Chuyển sang trang checkout
+                window.location.href = "checkout.html";
+            });
+        })();
+    </script>
 </body>
-<!-- --- Thêm vào cart.html: chèn ngay trước </body> --- -->
-<script>
-    (function () {
-        const CART_KEY = "cartItems";      // <--- đổi tên nếu app.js bạn dùng key khác
-        const CHECKOUT_KEY = "checkoutCart";
 
-        const checkoutBtn = document.getElementById("checkout-btn");
-        if (!checkoutBtn) return;
-
-        checkoutBtn.addEventListener("click", () => {
-            const cartItems = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-
-            if (!Array.isArray(cartItems) || cartItems.length === 0) {
-                alert("🛒 Your cart is empty!");
-                return;
-            }
-
-            // Lưu bản copy cho trang checkout dùng
-            localStorage.setItem(CHECKOUT_KEY, JSON.stringify(cartItems));
-
-            // (Tùy chọn) bạn có thể lưu tổng tiền nếu muốn:
-            // const total = cartItems.reduce((s,item) => s + (item.price || 0) * (item.quantity || 1), 0);
-            // localStorage.setItem("checkoutTotal", JSON.stringify(total));
-
-            // Chuyển sang trang checkout
-            window.location.href = "checkout.html";
-        });
-    })();
-</script>
 
 </html>
