@@ -307,32 +307,48 @@
 
       form.addEventListener("submit", e => {
         e.preventDefault();
+
         const name = document.getElementById("name").value.trim();
         const email = document.getElementById("email").value.trim();
         const phone = document.getElementById("phone").value.trim();
         const address = document.getElementById("address").value.trim();
+
         if (!name || !email || !phone || !address) {
           alert("Please fill in all fields!");
           return;
         }
 
         const orders = JSON.parse(localStorage.getItem("orders") || "[]");
-        orders.push({
+
+        // 🆕 Tạo đơn hàng mới
+        const newOrder = {
           id: "ORD-" + Date.now(),
           customer: { name, email, phone, address },
           items,
           total,
           date: new Date().toLocaleString()
-        });
+        };
+
+        orders.push(newOrder);
         localStorage.setItem("orders", JSON.stringify(orders));
+
+        // 🆕 Lưu đơn hàng mới nhất để trang checkoutDetails dùng
+        localStorage.setItem("latestOrder", JSON.stringify(newOrder));
+
+        // Xóa giỏ hàng
         localStorage.removeItem("checkoutCart");
         localStorage.removeItem("cartItems");
 
+        // Hiển thị thông báo
         successMessage.style.display = "block";
-        form.reset();
-        setTimeout(() => window.location.href = "index.html", 1500);
+        successMessage.textContent = "✅ Đặt hàng thành công! Đang chuyển hướng...";
+          // 🆕 Chuyển sang trang checkoutDetails.html
+        setTimeout(() => {
+          window.location.href = "checkoutDetails.html";
+        }, 1500);
       });
     });
   </script>
 </body>
+
 </html>
