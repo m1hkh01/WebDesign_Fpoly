@@ -11,6 +11,7 @@
         rel="stylesheet">
     <link href="style/neuglass.css" rel="stylesheet">
     <link href="style/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200">
   <circle cx="600" cy="600" r="600" fill="white"/>
@@ -18,11 +19,103 @@
 </svg>'>
 
     <style>
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(102, 126, 234, 0.6);
+            }
+        }
+
+        /* ===== HERO SECTION ===== */
         .account-hero {
             padding: 120px 20px 60px;
             text-align: center;
             position: relative;
             z-index: 1;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .account-hero h1 {
@@ -32,13 +125,16 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
+            animation: scaleIn 0.6s ease-out;
         }
 
         .account-hero p {
             color: rgba(255, 255, 255, 0.7);
             font-size: 1.1rem;
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
         }
 
+        /* ===== CONTAINER ===== */
         .account-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -50,25 +146,45 @@
             z-index: 1;
         }
 
+        /* ===== SIDEBAR ===== */
         .account-sidebar {
             display: flex;
             flex-direction: column;
             gap: 15px;
+            animation: slideInLeft 0.8s ease-out 0.3s backwards;
         }
 
         .sidebar-card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
             padding: 25px;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .sidebar-card:hover::before {
+            left: 100%;
         }
 
         .sidebar-card:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
 
         .user-avatar {
@@ -84,6 +200,13 @@
             color: white;
             margin: 0 auto 15px;
             border: 3px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            animation: scaleIn 0.6s ease-out 0.4s backwards;
+        }
+
+        .user-avatar:hover {
+            transform: scale(1.1) rotate(5deg);
+            animation: glow 2s ease-in-out infinite;
         }
 
         .user-info h3 {
@@ -91,12 +214,14 @@
             font-size: 1.3rem;
             margin-bottom: 5px;
             text-align: center;
+            animation: fadeInUp 0.6s ease-out 0.5s backwards;
         }
 
         .user-info p {
             color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
             text-align: center;
+            animation: fadeInUp 0.6s ease-out 0.6s backwards;
         }
 
         .nav-menu {
@@ -107,7 +232,13 @@
 
         .nav-menu li {
             margin-bottom: 8px;
+            animation: slideInLeft 0.5s ease-out backwards;
         }
+
+        .nav-menu li:nth-child(1) { animation-delay: 0.7s; }
+        .nav-menu li:nth-child(2) { animation-delay: 0.8s; }
+        .nav-menu li:nth-child(3) { animation-delay: 0.9s; }
+        .nav-menu li:nth-child(4) { animation-delay: 1s; }
 
         .nav-menu a {
             display: flex;
@@ -119,30 +250,67 @@
             border-radius: 10px;
             transition: all 0.3s ease;
             font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(102, 126, 234, 0.2), transparent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::before,
+        .nav-menu a.active::before {
+            width: 100%;
         }
 
         .nav-menu a:hover,
         .nav-menu a.active {
             background: rgba(255, 255, 255, 0.1);
             color: white;
+            transform: translateX(5px);
         }
 
         .nav-menu .icon {
             font-size: 1.2rem;
+            transition: transform 0.3s ease;
         }
 
+        .nav-menu a:hover .icon {
+            transform: scale(1.2);
+        }
+
+        /* ===== MAIN CONTENT ===== */
         .account-main {
             display: flex;
             flex-direction: column;
             gap: 25px;
+            animation: slideInRight 0.8s ease-out 0.5s backwards;
         }
 
         .content-card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
             padding: 30px;
+            transition: all 0.3s ease;
+            animation: scaleIn 0.6s ease-out backwards;
+        }
+
+        .content-card:nth-child(1) { animation-delay: 0.6s; }
+        .content-card:nth-child(2) { animation-delay: 0.7s; }
+
+        .content-card:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         }
 
         .content-card h2 {
@@ -154,6 +322,7 @@
             gap: 12px;
         }
 
+        /* ===== FORM ===== */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -171,13 +340,27 @@
             color: rgba(255, 255, 255, 0.8);
             font-weight: 500;
             font-size: 0.95rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group label i {
+            color: #667eea;
+            font-size: 0.9rem;
+        }
+
+        .form-group input:focus + label,
+        .form-group select:focus + label {
+            color: #667eea;
         }
 
         .form-group input,
         .form-group select {
             padding: 12px 15px;
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             border-radius: 10px;
             color: white;
             font-size: 1rem;
@@ -187,14 +370,17 @@
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: rgba(255, 255, 255, 0.3);
+            border-color: #667eea;
             background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
 
         .form-group.full-width {
             grid-column: 1 / -1;
         }
 
+        /* ===== BUTTONS ===== */
         .btn-group {
             display: flex;
             gap: 15px;
@@ -208,29 +394,75 @@
             font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
         }
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
 
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 2px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-danger:hover {
+            background: rgba(239, 68, 68, 0.3);
+            border-color: rgba(239, 68, 68, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+        }
+
+        /* ===== STATS GRID ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -240,17 +472,33 @@
 
         .stat-card {
             background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
+            padding: 25px;
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
+            transition: all 0.3s ease;
+            animation: scaleIn 0.5s ease-out backwards;
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.7s; }
+        .stat-card:nth-child(2) { animation-delay: 0.8s; }
+        .stat-card:nth-child(3) { animation-delay: 0.9s; }
+
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         .stat-card .number {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
-            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 5px;
+            animation: pulse 2s ease-in-out infinite;
         }
 
         .stat-card .label {
@@ -258,6 +506,7 @@
             font-size: 0.9rem;
         }
 
+        /* ===== ORDER ITEMS ===== */
         .order-item {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -268,11 +517,18 @@
             justify-content: space-between;
             align-items: center;
             transition: all 0.3s ease;
+            animation: fadeInUp 0.5s ease-out backwards;
         }
+
+        .order-item:nth-child(1) { animation-delay: 1s; }
+        .order-item:nth-child(2) { animation-delay: 1.1s; }
+        .order-item:nth-child(3) { animation-delay: 1.2s; }
 
         .order-item:hover {
             background: rgba(255, 255, 255, 0.05);
             border-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
 
         .order-info h4 {
@@ -291,6 +547,7 @@
             border-radius: 20px;
             font-weight: 600;
             font-size: 0.85rem;
+            animation: pulse 2s ease-in-out infinite;
         }
 
         .status-delivered {
@@ -308,6 +565,17 @@
             color: #fb923c;
         }
 
+        /* ===== TAB CONTENT ===== */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 968px) {
             .account-container {
                 grid-template-columns: 1fr;
@@ -324,41 +592,74 @@
             .stats-grid {
                 grid-template-columns: 1fr;
             }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
         }
 
-        .tab-navigation {
+        /* ===== DELETE CONFIRMATION MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: rgba(30, 30, 30, 0.95);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 60px rgba(239, 68, 68, 0.4);
+        }
+
+        .modal-content h2 {
+            color: #ef4444;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .modal-content p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .modal-buttons {
             display: flex;
             gap: 15px;
-            margin-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            justify-content: center;
         }
 
-        .tab-btn {
-            padding: 12px 24px;
-            background: none;
-            border: none;
-            color: rgba(255, 255, 255, 0.6);
-            font-weight: 600;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .tab-btn:hover {
-            color: white;
-        }
-
-        .tab-btn.active {
-            color: white;
-            border-bottom-color: #667eea;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -377,7 +678,7 @@
     <div id="header"></div>
 
     <!-- Hero Section -->
-    <section class="account-hero">
+    <section class="account-hero" style="margin-top: 50px; padding-bottom: 10px;">
         <h1>MY ACCOUNT</h1>
         <p>Manage your profile and orders</p>
     </section>
@@ -397,19 +698,19 @@
             <div class="sidebar-card">
                 <ul class="nav-menu">
                     <li><a href="#profile" class="nav-link active" data-tab="profile">
-                            <span class="icon">👤</span>
+                            <i class="fas fa-user icon"></i>
                             <span>Profile</span>
                         </a></li>
                     <li><a href="#orders" class="nav-link" data-tab="orders">
-                            <span class="icon">📦</span>
+                            <i class="fas fa-shopping-bag icon"></i>
                             <span>Orders</span>
                         </a></li>
                     <li><a href="#security" class="nav-link" data-tab="security">
-                            <span class="icon">🔒</span>
+                            <i class="fas fa-shield-alt icon"></i>
                             <span>Security</span>
                         </a></li>
-                    <li><a href="index.html" style="color: #ef4444;">
-                            <span class="icon">🚪</span>
+                    <li><a href="#" id="logout-link" style="color: #ef4444;">
+                            <i class="fas fa-sign-out-alt icon"></i>
                             <span>Logout</span>
                         </a></li>
                 </ul>
@@ -421,35 +722,35 @@
             <!-- Profile Tab -->
             <div class="tab-content active" id="profile-tab">
                 <div class="content-card">
-                    <h2>📋 Personal Information</h2>
+                    <h2><i class="fas fa-id-card"></i> Personal Information</h2>
                     <form id="profile-form">
                         <div class="form-grid">
                             <div class="form-group">
-                                <label>Full Name</label>
+                                <label><i class="fas fa-user"></i> Full Name</label>
                                 <input type="text" id="fullName" placeholder="Enter your full name" required>
                             </div>
                             <div class="form-group">
-                                <label>Email</label>
+                                <label><i class="fas fa-envelope"></i> Email</label>
                                 <input type="email" id="email" placeholder="your@email.com" readonly>
                             </div>
                             <div class="form-group">
-                                <label>Phone Number</label>
+                                <label><i class="fas fa-phone"></i> Phone Number</label>
                                 <input type="tel" id="phone" placeholder="+84 123 456 789">
                             </div>
                             <div class="form-group">
-                                <label>Date of Birth</label>
+                                <label><i class="fas fa-birthday-cake"></i> Date of Birth</label>
                                 <input type="date" id="dob">
                             </div>
                             <div class="form-group full-width">
-                                <label>Address</label>
+                                <label><i class="fas fa-map-marker-alt"></i> Address</label>
                                 <input type="text" id="address" placeholder="Street address">
                             </div>
                             <div class="form-group">
-                                <label>City</label>
+                                <label><i class="fas fa-city"></i> City</label>
                                 <input type="text" id="city" placeholder="City">
                             </div>
                             <div class="form-group">
-                                <label>Country</label>
+                                <label><i class="fas fa-globe"></i> Country</label>
                                 <select id="country">
                                     <option value="">Select Country</option>
                                     <option value="VN">Vietnam</option>
@@ -461,8 +762,8 @@
                             </div>
                         </div>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-secondary">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <button type="button" class="btn btn-secondary"><span><i class="fas fa-times"></i> Cancel</span></button>
+                            <button type="submit" class="btn btn-primary"><span><i class="fas fa-save"></i> Save Changes</span></button>
                         </div>
                     </form>
                 </div>
@@ -471,7 +772,7 @@
             <!-- Orders Tab -->
             <div class="tab-content" id="orders-tab">
                 <div class="content-card">
-                    <h2>📦 Order History</h2>
+                    <h2><i class="fas fa-box-open"></i> Order History</h2>
 
                     <div class="stats-grid">
                         <div class="stat-card">
@@ -488,79 +789,78 @@
                         </div>
                     </div>
 
-                    <div id="orders-list">
-                        <div class="order-item">
-                            <div class="order-info">
-                                <h4>Order #12345</h4>
-                                <p>Nike Air Max 270 × 1</p>
-                                <p>Ordered on: Jan 15, 2025</p>
-                                <p style="color: white; font-weight: 600;">$150.00</p>
-                            </div>
-                            <span class="order-status status-delivered">Delivered</span>
-                        </div>
-                        <div class="order-item">
-                            <div class="order-info">
-                                <h4>Order #12344</h4>
-                                <p>Nike React Infinity × 2</p>
-                                <p>Ordered on: Jan 10, 2025</p>
-                                <p style="color: white; font-weight: 600;">$280.00</p>
-                            </div>
-                            <span class="order-status status-shipping">Shipping</span>
-                        </div>
-                        <div class="order-item">
-                            <div class="order-info">
-                                <h4>Order #12343</h4>
-                                <p>Nike Air Jordan 1 × 1</p>
-                                <p>Ordered on: Jan 5, 2025</p>
-                                <p style="color: white; font-weight: 600;">$180.00</p>
-                            </div>
-                            <span class="order-status status-processing">Processing</span>
-                        </div>
-                    </div>
+                    <div id="orders-list"></div>
                 </div>
             </div>
 
             <!-- Security Tab -->
             <div class="tab-content" id="security-tab">
                 <div class="content-card">
-                    <h2>🔒 Security Settings</h2>
+                    <h2><i class="fas fa-lock"></i> Security Settings</h2>
                     <form id="password-form">
                         <div class="form-grid">
                             <div class="form-group full-width">
-                                <label>Current Password</label>
+                                <label><i class="fas fa-key"></i> Current Password</label>
                                 <input type="password" id="current-password" placeholder="Enter current password"
                                     required>
                             </div>
                             <div class="form-group">
-                                <label>New Password</label>
+                                <label><i class="fas fa-lock"></i> New Password</label>
                                 <input type="password" id="new-password" placeholder="Enter new password" required>
                             </div>
                             <div class="form-group">
-                                <label>Confirm New Password</label>
+                                <label><i class="fas fa-check-circle"></i> Confirm New Password</label>
                                 <input type="password" id="confirm-password" placeholder="Confirm new password"
                                     required>
                             </div>
                         </div>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-secondary">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Update Password</button>
+                            <button type="button" class="btn btn-secondary"><span><i class="fas fa-times"></i> Cancel</span></button>
+                            <button type="submit" class="btn btn-primary"><span><i class="fas fa-shield-alt"></i> Update Password</span></button>
                         </div>
                     </form>
                 </div>
 
                 <div class="content-card">
-                    <h2>⚙️ Account Actions</h2>
+                    <h2><i class="fas fa-cog"></i> Account Actions</h2>
                     <p style="color: rgba(255,255,255,0.7); margin-bottom: 20px;">Manage your account settings and
                         preferences</p>
                     <div class="btn-group" style="justify-content: flex-start;">
-                        <button class="btn btn-secondary">Export Data</button>
-                        <button class="btn"
-                            style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3);">Delete
-                            Account</button>
+                        <button class="btn btn-secondary" id="export-data-btn">
+                            <span><i class="fas fa-download"></i> Export Data</span>
+                        </button>
+                        <button class="btn btn-danger" id="delete-account-btn">
+                            <span><i class="fas fa-trash-alt"></i> Delete Account</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </main>
+    </div>
+
+    <!-- Delete Account Confirmation Modal -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content">
+            <h2><i class="fas fa-exclamation-triangle"></i> Delete Account</h2>
+            <p>Are you absolutely sure you want to delete your account?</p>
+            <p style="color: #ef4444; font-weight: 600;">This action cannot be undone. All your data, orders, and information will be permanently deleted.</p>
+            <div style="margin: 25px 0;">
+                <label style="color: rgba(255,255,255,0.8); display: block; margin-bottom: 10px;">
+                    <i class="fas fa-keyboard"></i> Type "DELETE" to confirm:
+                </label>
+                <input type="text" id="delete-confirm-input" 
+                    style="width: 100%; padding: 12px; background: rgba(255,255,255,0.1); border: 2px solid rgba(239,68,68,0.3); border-radius: 8px; color: white; font-size: 1rem; text-align: center; text-transform: uppercase;"
+                    placeholder="Type DELETE">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" id="cancel-delete-btn">
+                    <span><i class="fas fa-times"></i> Cancel</span>
+                </button>
+                <button class="btn btn-danger" id="confirm-delete-btn" disabled>
+                    <span><i class="fas fa-trash"></i> Delete Permanently</span>
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -697,10 +997,106 @@
             document.getElementById('password-form').reset();
         });
 
-        // Mock order stats
-        document.getElementById('total-orders').textContent = '3';
-        document.getElementById('total-spent').textContent = '$610';
-        document.getElementById('active-orders').textContent = '2';
+        // Logout functionality
+        const logoutLink = document.getElementById('logout-link');
+        if (logoutLink) {
+            logoutLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                if (confirm('Are you sure you want to logout?')) {
+                    localStorage.removeItem(CURRENT_KEY);
+                    localStorage.removeItem('currentUser');
+                    alert('✅ Logged out successfully!');
+                    window.location.href = 'index.html';
+                }
+            });
+        }
+
+        // Export Data functionality
+        document.getElementById('export-data-btn').addEventListener('click', () => {
+            const userData = {
+                profile: currentUser,
+                orders: JSON.parse(localStorage.getItem('orders') || '[]').filter(
+                    order => order.customer && order.customer.email === currentUser.email
+                )
+            };
+
+            const dataStr = JSON.stringify(userData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `account-data-${currentUser.email}-${Date.now()}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+
+            alert('✅ Your data has been exported successfully!');
+        });
+
+        // Delete Account Modal
+        const deleteModal = document.getElementById('delete-modal');
+        const deleteBtn = document.getElementById('delete-account-btn');
+        const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
+        const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
+        const deleteConfirmInput = document.getElementById('delete-confirm-input');
+
+        // Open delete modal
+        deleteBtn.addEventListener('click', () => {
+            deleteModal.classList.add('active');
+            deleteConfirmInput.value = '';
+            confirmDeleteBtn.disabled = true;
+        });
+
+        // Close delete modal
+        cancelDeleteBtn.addEventListener('click', () => {
+            deleteModal.classList.remove('active');
+        });
+
+        // Close modal on background click
+        deleteModal.addEventListener('click', (e) => {
+            if (e.target === deleteModal) {
+                deleteModal.classList.remove('active');
+            }
+        });
+
+        // Enable confirm button when "DELETE" is typed
+        deleteConfirmInput.addEventListener('input', (e) => {
+            if (e.target.value.toUpperCase() === 'DELETE') {
+                confirmDeleteBtn.disabled = false;
+            } else {
+                confirmDeleteBtn.disabled = true;
+            }
+        });
+
+        // Confirm delete account
+        confirmDeleteBtn.addEventListener('click', () => {
+            if (deleteConfirmInput.value.toUpperCase() === 'DELETE') {
+                // Remove user from users array
+                const users = JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+                const filteredUsers = users.filter(u => u.email !== currentUser.email);
+                localStorage.setItem(USERS_KEY, JSON.stringify(filteredUsers));
+
+                // Remove current user session
+                localStorage.removeItem(CURRENT_KEY);
+                localStorage.removeItem('currentUser');
+
+                // Remove user's cart
+                const cartKey = `cart_${currentUser.email}`;
+                localStorage.removeItem(cartKey);
+                localStorage.removeItem('cartItems');
+
+                // Remove user's orders
+                const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                const filteredOrders = orders.filter(
+                    order => !order.customer || order.customer.email !== currentUser.email
+                );
+                localStorage.setItem('orders', JSON.stringify(filteredOrders));
+
+                deleteModal.classList.remove('active');
+                alert('✅ Your account has been permanently deleted.');
+                window.location.href = 'index.html';
+            }
+        });
 
         // Header Auth UI
         function setupHeaderAuthUI() {
@@ -728,8 +1124,9 @@
                 const logoutBtn = dropContent.querySelector("#logoutBtn");
                 if (logoutBtn) {
                     logoutBtn.addEventListener("click", () => {
-                        if (confirm("Logout?")) {
+                        if (confirm("Are you sure you want to logout?")) {
                             localStorage.removeItem(CURRENT_KEY);
+                            localStorage.removeItem('currentUser');
                             window.location.href = "index.html";
                         }
                     });
@@ -765,31 +1162,26 @@
                 lastScrollY = currentScrollY;
             });
         }
+
         // Load orders from localStorage
         function loadOrders() {
             const orders = JSON.parse(localStorage.getItem('orders') || '[]');
             
             // Filter orders by current user email
-            const userOrders = orders.filter(order => 
+            const userOrders = orders.filter(order =>
                 order.customer && order.customer.email === currentUser.email
             );
-
-            console.log('All orders:', orders);
-            console.log('User orders:', userOrders);
 
             // Calculate stats
             const totalOrders = userOrders.length;
             const totalSpent = userOrders.reduce((sum, order) => sum + (order.total || 0), 0);
-            
-            // Random status for active orders demo (since status not in data)
-            const statuses = ['Processing', 'Shipping', 'Delivered'];
             const activeOrders = Math.min(Math.ceil(userOrders.length * 0.6), userOrders.length);
 
-            // Update stats display (convert USD to VND: 1 USD = 25,000 VND)
+            // Update stats display
             document.getElementById('total-orders').textContent = totalOrders;
-            document.getElementById('total-spent').textContent = 
+            document.getElementById('total-spent').textContent =
                 new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' })
-                .format(totalSpent * 1);
+                    .format(totalSpent);
             document.getElementById('active-orders').textContent = activeOrders;
 
             // Display orders
@@ -802,7 +1194,7 @@
                     </div>
                 `;
             } else {
-                ordersList.innerHTML = userOrders.map((order, index) => {
+                ordersList.innerHTML = userOrders.map((order) => {
                     // Assign status based on order age
                     const orderDate = new Date(order.date);
                     const daysSinceOrder = Math.floor((Date.now() - orderDate.getTime()) / (1000 * 60 * 60 * 24));
@@ -826,7 +1218,7 @@
                     const totalVND = new Intl.NumberFormat('vi-VN', { 
                         style: 'currency', 
                         currency: 'VND' 
-                    }).format(order.total * 1);
+                    }).format(order.total);
 
                     return `
                         <div class="order-item">
@@ -847,7 +1239,7 @@
             }
         }
 
-        // Load orders when Orders tab is active
+        // Load orders when page loads
         loadOrders();
     </script>
 </body>

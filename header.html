@@ -1,50 +1,490 @@
-<header class="glass">
-    <nav>
-        <a href="index.html" class="logo">
-            <!-- SVG logo -->
-            <svg width="64px" height="64px" viewBox="0 0 192.756 192.756" xmlns="http://www.w3.org/2000/svg" fill="#ffffff">
-                <g fill-rule="evenodd" clip-rule="evenodd">
-                    <path d="M42.741 71.477c-9.881 11.604-19.355 25.994-19.45 36.75-.037 4.047 1.255 7.58 4.354 10.256 
-                     4.46 3.854 9.374 5.213 14.264 5.221 7.146.01 14.242-2.873 19.798-5.096 
-                     9.357-3.742 112.79-48.659 112.79-48.659.998-.5.811-1.123-.438-.812
-                     -.504.126-112.603 30.505-112.603 30.505a24.771 24.771 0 0 1-6.524.934
-                     c-8.615.051-16.281-4.731-16.219-14.808.024-3.943 1.231-8.698 4.028-14.291z"/>
-                </g>
-            </svg>
-        </a>
+<!DOCTYPE html>
+<html lang="vi">
 
-        <ul class="nav-links" style="padding-top: 10px;">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="index.html#product">Product</a></li>
-            <li><a href="cart.html">Cart</a></li>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Header Navigation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            <!-- Account dropdown -->
-            <li class="dropdown" id="account-dropdown">
-                <a href="login.html" class="dropbtn" style="padding-top: 0px;">Login / SignUp</a>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #8c8c8c 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-            </li>
+        .glass {
+            background: rgba(186, 186, 186, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(52, 52, 52, 0.37);
+        }
 
-            <li><a href="index.html#contact">Connect</a></li>
-            
-            <!-- 👉 Ẩn mặc định -->
-            <li id="account-link" style="display:none;"><a href="account.html">Account</a></li>
-        </ul>
+        header {
+            padding: 15px 30px;
+        }
 
-        <div class="mobile-menu-toggle">
-            <div class="hamburger-line"></div>
-            <div class="hamburger-line"></div>
-            <div class="hamburger-line"></div>
-        </div>
-        
-        <!-- Mobile nav fallback -->
-        <div class="mobile-nav" aria-hidden="true">
-            <a href="index.html">Home</a>
-            <a href="index.html#product">Product</a>
-            <a href="cart.html">Cart</a>
-            <a href="login.html">Account</a>
-            <a href="index.html#contact">Connect</a>
-            <!-- 👉 Ẩn mặc định -->
-            <a href="Account.html" id="mobile-account-link" style="display:none;">Account</a>
-        </div>
-    </nav>
-</header>
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            z-index: 1001;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo svg {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            align-items: center;
+            padding-top: 10px;
+        }
+
+        .nav-links li a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 15px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.15);
+            transition: left 0.3s ease;
+        }
+
+        .nav-links li a:hover::before {
+            left: 0;
+        }
+
+        .nav-links li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-links li a svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2.5;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropbtn {}
+
+        .cart-link {
+            position: relative;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: 6px;
+            right: 12px;
+            background: #ff4757;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+            position: relative;
+        }
+
+        .hamburger-line {
+            width: 28px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 320px;
+            height: 100vh;
+            background: #ffffff;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+            padding: 0;
+            z-index: 1000;
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+            right: 0;
+            flex-direction: column;
+        }
+
+        .mobile-nav-header {
+            padding: 30px 25px 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #535353 100%);
+            color: rgb(0, 0, 0);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .mobile-nav-header h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .mobile-nav-header p {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .mobile-nav a {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 25px;
+            color: #2d3748;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .mobile-nav a::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #ffffff 0%, #8d8d8d 100%);
+            transform: scaleY(0);
+            transition: transform 0.25s ease;
+        }
+
+        .mobile-nav a:hover::before,
+        .mobile-nav a:active::before {
+            transform: scaleY(1);
+        }
+
+        .mobile-nav a:hover,
+        .mobile-nav a:active {
+            background: #f8f9fa;
+            color: #ffffff;
+            padding-left: 30px;
+        }
+
+        .mobile-nav a svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            stroke-width: 2;
+            transition: all 0.25s ease;
+            flex-shrink: 0;
+        }
+
+        .mobile-nav a:hover svg {
+            transform: scale(1.15);
+        }
+
+        .mobile-nav-footer {
+            margin-top: auto;
+            padding: 20px 25px;
+            background: #f8f9fa;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .mobile-nav-footer p {
+            font-size: 12px;
+            color: #718096;
+            text-align: center;
+            margin: 0;
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(2px);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .mobile-nav {
+                width: 85%;
+            }
+        }
+
+        /* Smooth scrollbar cho mobile menu */
+        .mobile-nav::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .mobile-nav::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .mobile-nav::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 3px;
+        }
+
+        .mobile-nav::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mobile-overlay" onclick="toggleMobileMenu()"></div>
+
+    <header class="glass">
+        <nav>
+            <a href="index.html" class="logo">
+                <svg width="64px" height="64px" viewBox="0 0 192.756 192.756" xmlns="http://www.w3.org/2000/svg"
+                    fill="#ffffff">
+                    <g fill-rule="evenodd" clip-rule="evenodd">
+                        <path d="M42.741 71.477c-9.881 11.604-19.355 25.994-19.45 36.75-.037 4.047 1.255 7.58 4.354 10.256 
+                         4.46 3.854 9.374 5.213 14.264 5.221 7.146.01 14.242-2.873 19.798-5.096 
+                         9.357-3.742 112.79-48.659 112.79-48.659.998-.5.811-1.123-.438-.812
+                         -.504.126-112.603 30.505-112.603 30.505a24.771 24.771 0 0 1-6.524.934
+                         c-8.615.051-16.281-4.731-16.219-14.808.024-3.943 1.231-8.698 4.028-14.291z" />
+                    </g>
+                </svg>
+            </a>
+
+            <ul class="nav-links" style="padding-top: 10px;">
+                <li>
+                    <a href="index.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                        </svg>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#product">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                        </svg>
+                        Product
+                    </a>
+                </li>
+                <li class="cart-link">
+                    <a href="cart.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        Cart
+                    </a>
+                </li>
+                <li class="dropdown" id="account-dropdown">
+                    <a href="login.html" class="dropbtn" style="padding-top: 10px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        Login | SignUp
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html#contact">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        Connect
+                    </a>
+                </li>
+                <li id="account-link" style="display:none;">
+                    <a href="account.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Account
+                    </a>
+                </li>
+            </ul>
+
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+                <div class="hamburger-line"></div>
+            </div>
+
+            <div class="mobile-nav" aria-hidden="true">
+                <div class="mobile-nav-header">
+                    <h3>Menu</h3>
+                </div>
+
+                <a href="index.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                    </svg>
+                    Home
+                </a>
+                <a href="index.html#product">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                    </svg>
+                    Product
+                </a>
+                <a href="cart.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    Cart
+                </a>
+                <a href="login.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2"
+                        viewBox="0 0 24 24" width="24" height="24">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline stroke-linecap="round" stroke-linejoin="round" points="16 17 21 12 16 7" />
+                        <line stroke-linecap="round" stroke-linejoin="round" x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    Login | SignUp
+                </a>
+
+                <a href="index.html#contact">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    Connect
+                </a>
+                <a href="Account.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    Account
+                </a>
+
+                <div class="mobile-nav-footer">
+                    <p>© 2025 Designed by Minh Khôi & Đình Toàn</p>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileNav = document.querySelector('.mobile-nav');
+            const overlay = document.querySelector('.mobile-overlay');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+
+            mobileNav.classList.toggle('active');
+            overlay.classList.toggle('active');
+            toggle.classList.toggle('active');
+
+            if (mobileNav.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', function () {
+                toggleMobileMenu();
+            });
+        });
+    </script>
+</body>
+
+</html>

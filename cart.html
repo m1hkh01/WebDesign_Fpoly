@@ -234,10 +234,6 @@
             transition: all 0.3s ease;
         }
 
-        .cart-summary:hover {
-            animation: glow 2s ease-in-out infinite;
-        }
-
         /* Summary Header Animation */
         .summary-header {
             position: relative;
@@ -460,6 +456,249 @@
                 opacity: 0;
             }
         }
+
+        /* ===== BASE STYLES (Desktop) ===== */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            margin: 15px 0;
+            gap: 20px;
+        }
+
+        .cart-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .cart-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .qty-btn:hover {
+            background: #0077ff;
+            color: white;
+            border-color: #0077ff;
+        }
+
+        .qty-value {
+            min-width: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .cart-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .subtotal {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0077ff;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+            transition: all 0.3s;
+        }
+
+        .remove-btn:hover {
+            transform: rotate(90deg) scale(1.2);
+        }
+
+        /* ===== RESPONSIVE FIX CHO < 460PX ===== */
+        @media (max-width: 460px) {
+            /* Fix container */
+            #cart-container {
+                padding: 8px !important;
+                overflow-x: hidden !important;
+            }
+
+            /* Chuyển cart-item sang layout dọc */
+            .cart-item {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                padding: 12px !important;
+                gap: 12px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            /* Tắt hover scale trên mobile */
+            .cart-item:hover {
+                transform: translateY(-2px) scale(1) !important;
+            }
+
+            /* Fix cart-left */
+            .cart-left {
+                width: 100% !important;
+                gap: 10px !important;
+            }
+
+            /* Giảm kích thước ảnh */
+            .cart-img {
+                width: 70px !important;
+                height: 70px !important;
+                flex-shrink: 0;
+            }
+
+            /* Fix cart-info */
+            .cart-info {
+                flex: 1 !important;
+                min-width: 0 !important;
+            }
+
+            .cart-info h4 {
+                font-size: 14px !important;
+                margin: 0 !important;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .cart-info p {
+                font-size: 13px !important;
+                margin: 4px 0 !important;
+            }
+
+            /* Fix quantity controls */
+            .quantity {
+                gap: 8px !important;
+            }
+
+            .qty-btn {
+                width: 28px !important;
+                height: 28px !important;
+                font-size: 14px !important;
+            }
+
+            .qty-value {
+                min-width: 25px !important;
+                font-size: 14px !important;
+            }
+
+            /* Fix cart-right */
+            .cart-right {
+                width: 100% !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                padding-top: 8px !important;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .subtotal {
+                font-size: 16px !important;
+            }
+
+            .remove-btn {
+                font-size: 18px !important;
+            }
+
+            /* Fix cart-summary */
+            .cart-summary {
+                width: 100% !important;
+                margin: 10px 0 !important;
+                padding: 15px !important;
+                box-sizing: border-box !important;
+            }
+
+            .checkout-btn {
+                width: 100% !important;
+                padding: 12px !important;
+                font-size: 14px !important;
+            }
+        }
+
+        /* ===== FIX CHO MÀN HÌNH CỰC NHỎ < 360PX ===== */
+        @media (max-width: 360px) {
+            .cart-item {
+                padding: 10px !important;
+            }
+
+            .cart-img {
+                width: 60px !important;
+                height: 60px !important;
+            }
+
+            .cart-info h4 {
+                font-size: 13px !important;
+            }
+
+            .cart-info p {
+                font-size: 12px !important;
+            }
+
+            .qty-btn {
+                width: 25px !important;
+                height: 25px !important;
+                font-size: 12px !important;
+            }
+
+            .qty-value {
+                min-width: 20px !important;
+                font-size: 13px !important;
+            }
+
+            .subtotal {
+                font-size: 14px !important;
+            }
+        }
+
+        /* ===== EMPTY CART STATE ===== */
+        .empty-cart-message {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        @media (max-width: 460px) {
+            .empty-cart-message {
+                padding: 40px 15px !important;
+            }
+
+            .empty-cart-message i {
+                font-size: 60px !important;
+            }
+        }
+        
     </style>
 </head>
 
@@ -469,7 +708,7 @@
             const currentUser = localStorage.getItem("ss_currentUser") || localStorage.getItem("currentUser");
 
             if (!currentUser) {
-                alert("⚠️ Please login to view your cart!");
+                alert("⚠️ Vui lòng đăng nhập để xem giỏ hàng!");
                 window.location.href = "login.html";
             }
         });
@@ -494,11 +733,7 @@
     <br><br><br><br><br><br><br>
     <!-- Cart Section -->
     <section class="products" id="cart">
-        <h2 class="section-title">YOUR CART</h2>
-        <div class="container glass" id="cart-container">
-            <!-- JS render items -->
-        </div>
-
+        <h2 class="section-title" style="margin-bottom: 20px;">YOUR CART</h2>
         <div class="cart-summary glass">
             <div class="summary-header">
                 <h3>Order Summary</h3>
@@ -513,6 +748,11 @@
                 <span>Proceed to Checkout</span>
             </button>
         </div>
+        <br>
+        <div class="container glass" id="cart-container" style="margin-bottom: 100px;">
+            <!-- JS render items -->
+        </div>
+
 
     </section>
 
@@ -574,7 +814,7 @@
                 const cartItems = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
 
                 if (!Array.isArray(cartItems) || cartItems.length === 0) {
-                    alert("🛒 Your cart is empty!");
+                    alert("Your cart is empty!");
                     return;
                 }
 
