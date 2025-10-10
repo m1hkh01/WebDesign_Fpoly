@@ -229,10 +229,7 @@
         }
 
         /* Cart Summary Animation */
-        .cart-summary {
-            animation: slideInRight 1s ease-out 0.4s both;
-            transition: all 0.3s ease;
-        }
+
 
         /* Summary Header Animation */
         .summary-header {
@@ -408,6 +405,16 @@
             .cart-summary {
                 animation: fadeInUp 1s ease-out 0.6s both;
             }
+
+            .cart-summary.sticky-summary {
+                bottom: 0;
+                right: 0;
+                left: 0;
+                width: 100%;
+                border-radius: 0;
+                padding: 10px 20px;
+                background: rgba(255, 255, 255, 0.9);
+            }
         }
 
         /* Stagger Animation for Multiple Items */
@@ -546,6 +553,7 @@
 
         /* ===== RESPONSIVE FIX CHO < 460PX ===== */
         @media (max-width: 460px) {
+
             /* Fix container */
             #cart-container {
                 padding: 8px !important;
@@ -635,10 +643,20 @@
 
             /* Fix cart-summary */
             .cart-summary {
-                width: 100% !important;
-                margin: 10px 0 !important;
-                padding: 15px !important;
-                box-sizing: border-box !important;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.12);
+                backdrop-filter: blur(12px);
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25);
+                padding: 15px 25px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                z-index: 999;
+                transition: all 0.3s ease;
             }
 
             .checkout-btn {
@@ -698,11 +716,64 @@
                 font-size: 60px !important;
             }
         }
-        
+
+        .cart-summary {
+            position: static;
+            width: 320px;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+            border-radius: 16px;
+        }
+
+        .cart-summary.sticky-summary {
+            position: fixed;
+            bottom: 0px;
+            right: 20px;
+            width: 320px;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .cart-summary.sticky-summary {
+                width: 100%;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                border-radius: 0;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const summary = document.querySelector(".cart-summary");
+            const footer = document.querySelector("#footer");
+
+            function handleScroll() {
+                if (!summary || !footer) return;
+
+                const footerRect = footer.getBoundingClientRect();
+
+                // Nếu footer chuẩn bị chạm màn hình => bỏ sticky
+                if (footerRect.top <= window.innerHeight - 100) {
+                    summary.classList.remove("sticky-summary");
+                } else {
+                    summary.classList.add("sticky-summary");
+                }
+            }
+
+            window.addEventListener("scroll", handleScroll);
+            handleScroll();
+        });
+    </script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const currentUser = localStorage.getItem("ss_currentUser") || localStorage.getItem("currentUser");
@@ -733,27 +804,25 @@
     <br><br><br><br><br><br><br>
     <!-- Cart Section -->
     <section class="products" id="cart">
-        <h2 class="section-title" style="margin-bottom: 20px;">YOUR CART</h2>
-        <div class="cart-summary glass">
+        <h2 class="section-title">YOUR CART</h2>
+
+        <div class="container glass" id="cart-container" style="margin-bottom: 30px;">
+            <!-- JS render cart items -->
+        </div>
+
+        <!-- ✅ Order Summary -->
+        <div class="cart-summary glass" id="order-summary">
             <div class="summary-header">
                 <h3>Order Summary</h3>
             </div>
-
             <div class="summary-body">
                 <p>Total:</p>
                 <span id="cart-total">0 VND</span>
             </div>
-
             <button id="checkout-btn" class="checkout-btn">
-                <span>Proceed to Checkout</span>
+                <span>PROCEED TO CHECKOUT</span>
             </button>
         </div>
-        <br>
-        <div class="container glass" id="cart-container" style="margin-bottom: 100px;">
-            <!-- JS render items -->
-        </div>
-
-
     </section>
 
     <!-- Footer -->
@@ -769,6 +838,34 @@
         }
         loadHTML("header", "header.html");
         loadHTML("footer", "footer.html");
+        // =======================
+        // Sticky Order Summary
+        // =======================
+        function setupStickySummary() {
+            const summary = document.querySelector(".cart-summary");
+
+            // Đợi footer load xong
+            const checkFooter = setInterval(() => {
+                const footer = document.querySelector("#footer");
+                if (footer && summary) {
+                    clearInterval(checkFooter);
+
+                    function handleScroll() {
+                        const footerRect = footer.getBoundingClientRect();
+                        if (footerRect.top <= window.innerHeight - 120) {
+                            summary.classList.remove("sticky-summary");
+                        } else {
+                            summary.classList.add("sticky-summary");
+                        }
+                    }
+
+                    window.addEventListener("scroll", handleScroll);
+                    handleScroll(); // gọi 1 lần ngay lúc đầu
+                }
+            }, 300); // check mỗi 300ms cho đến khi footer load
+        }
+
+        document.addEventListener("DOMContentLoaded", setupStickySummary);
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -818,14 +915,10 @@
                     return;
                 }
 
-                // Lưu bản sao cho trang checkout dùng
-                localStorage.setItem(CHECKOUT_KEY, JSON.stringify(cartItems));
+                localStorage.setItem("checkoutCart", JSON.stringify(cart));
+                localStorage.setItem("checkoutTotal", total);
 
-                // (Tùy chọn) Lưu tổng tiền
-                // const total = cartItems.reduce((s,item)=>s+(item.price||0)*(item.quantity||1),0);
-                // localStorage.setItem("checkoutTotal", total);
-
-                // Chuyển sang trang checkout
+                // ✅ Chuyển hướng sang trang checkout
                 window.location.href = "checkout.html";
             });
         })();
