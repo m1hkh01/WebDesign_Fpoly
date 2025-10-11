@@ -108,8 +108,6 @@
             position: relative;
         }
 
-        .dropbtn {}
-
         .cart-link {
             position: relative;
         }
@@ -159,15 +157,16 @@
             transform: translateY(-8px) rotate(-45deg);
         }
 
+        /* MOBILE MENU - COMPACT DESIGN */
         .mobile-nav {
             display: none;
             position: fixed;
             top: 0;
             right: -100%;
-            width: 320px;
-            height: 100vh;
-            background: #c6c6c6;
-            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.15);
+            width: 240px;
+            height: 400px;
+            background: #1f1f1f;
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
             padding: 0;
             z-index: 1000;
             transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -181,37 +180,32 @@
         }
 
         .mobile-nav-header {
-            padding: 30px 25px 20px;
-            background: linear-gradient(135deg, #f0f0f0 0%, #535353 100%);
-            color: rgb(0, 0, 0);
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            padding: 15px 15px 12px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .mobile-nav-header h3 {
-            font-size: 20px;
+            font-size: 14px;
             font-weight: 600;
             margin: 0;
-        }
-
-        .mobile-nav-header p {
-            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             opacity: 0.9;
-            margin-top: 5px;
         }
 
         .mobile-nav a {
             display: flex;
             align-items: center;
-            gap: 16px;
-            padding: 16px 25px;
-            color: #2d3748;
+            gap: 10px;
+            padding: 10px 15px;
+            color: #b8b8b8;
             text-decoration: none;
-            font-size: 15px;
+            font-size: 13px;
             font-weight: 500;
-            border-bottom: 1px solid #f0f0f0;
-            transition: all 0.25s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.2s ease;
             position: relative;
         }
 
@@ -220,11 +214,11 @@
             position: absolute;
             left: 0;
             top: 0;
-            width: 4px;
+            width: 3px;
             height: 100%;
-            background: linear-gradient(135deg, #ffffff 0%, #8d8d8d 100%);
+            background: linear-gradient(135deg, #8a8a8a 0%, #555555 100%);
             transform: scaleY(0);
-            transition: transform 0.25s ease;
+            transition: transform 0.2s ease;
         }
 
         .mobile-nav a:hover::before,
@@ -234,36 +228,37 @@
 
         .mobile-nav a:hover,
         .mobile-nav a:active {
-            background: #f8f9fa;
+            background: rgba(138, 138, 138, 0.1);
             color: #ffffff;
-            padding-left: 30px;
+            padding-left: 20px;
         }
 
         .mobile-nav a svg {
-            width: 22px;
-            height: 22px;
+            width: 16px;
+            height: 16px;
             stroke: currentColor;
             stroke-width: 2;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             flex-shrink: 0;
         }
 
         .mobile-nav a:hover svg {
-            transform: scale(1.15);
+            transform: scale(1.1);
         }
 
         .mobile-nav-footer {
             margin-top: auto;
-            padding: 20px 25px;
-            background: #f8f9fa;
-            border-top: 1px solid #e2e8f0;
+            padding: 12px 15px;
+            background: #0f1419;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .mobile-nav-footer p {
-            font-size: 12px;
+            font-size: 10px;
             color: #718096;
             text-align: center;
             margin: 0;
+            line-height: 1.4;
         }
 
         .mobile-overlay {
@@ -297,13 +292,14 @@
 
         @media (max-width: 480px) {
             .mobile-nav {
-                width: 85%;
+                width: 75%;
+                max-width: 240px;
             }
         }
 
-        /* Smooth scrollbar cho mobile menu */
+        /* Smooth scrollbar */
         .mobile-nav::-webkit-scrollbar {
-            width: 6px;
+            width: 5px;
         }
 
         .mobile-nav::-webkit-scrollbar-track {
@@ -341,15 +337,6 @@
 
             <ul class="nav-links" style="padding-top: 10px;">
                 <li>
-                    <a href="index.html">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                        </svg>
-                        Home
-                    </a>
-                </li>
-                <li>
                     <a href="index.html#product">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -358,13 +345,20 @@
                         Product
                     </a>
                 </li>
+                <li>
+                    <a href="index.html#contact">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                    </a>
+                </li>
                 <li class="cart-link">
                     <a href="cart.html">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
-                        Cart
                     </a>
                 </li>
                 <li class="dropdown" id="account-dropdown">
@@ -373,16 +367,6 @@
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
-                        Login | SignUp
-                    </a>
-                </li>
-                <li>
-                    <a href="index.html#contact">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                        </svg>
-                        Connect
                     </a>
                 </li>
                 <li id="account-link" style="display:none;">
@@ -392,20 +376,19 @@
                                 d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
-                        Account
                     </a>
                 </li>
             </ul>
 
             <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
-                <div class="hamburger-line"></div>
+                <div class="hamburger-line" style="margin: 0px;"></div>
+                <div class="hamburger-line" style="margin: 0px;"></div>
+                <div class="hamburger-line" style="margin: 0px;"></div>
             </div>
 
-            <div class="mobile-nav" aria-hidden="true">
+            <div class="mobile-nav" aria-hidden="true" >
                 <div class="mobile-nav-header">
-                    <h3>Menu</h3>
+                    <h3>MENU</h3>
                 </div>
 
                 <a href="index.html">
@@ -439,7 +422,6 @@
                     </svg>
                     Login | SignUp
                 </a>
-
                 <a href="index.html#contact">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -456,7 +438,7 @@
                 </a>
 
                 <div class="mobile-nav-footer">
-                    <p>© 2025 Designed by Minh Khôi & Đình Toàn</p>
+                    <p>© 2025 Minh Khôi & Đình Toàn</p>
                 </div>
             </div>
         </nav>
