@@ -329,20 +329,43 @@ function renderCart() {
 }
 
 // =======================
-// Toast Notification
+// Toast Notification (Modern)
 // =======================
-function showToast(message) {
-  const toast = document.createElement("div");
-  toast.className = "toast";
-  toast.textContent = message;
-  document.body.appendChild(toast);
+function showToast(message, type = "info") {
+  const icons = {
+    success: "✅",
+    error: "❌",
+    info: "✅"
+  };
 
-  setTimeout(() => toast.classList.add("show"), 10);
+  // Tạo container nếu chưa có
+  let container = document.querySelector(".toast-container");
+  if (!container) {
+    container = document.createElement("div");
+    container.className = "toast-container";
+    document.body.appendChild(container);
+  }
+
+  // Tạo toast
+  const toast = document.createElement("div");
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `
+    <span class="toast-icon">${icons[type]}</span>
+    <span class="toast-message">${message}</span>
+  `;
+
+  container.appendChild(toast);
+
+  // Hiệu ứng hiện
+  setTimeout(() => toast.classList.add("show"), 50);
+
+  // Tự ẩn sau 3 giây
   setTimeout(() => {
     toast.classList.remove("show");
     setTimeout(() => toast.remove(), 400);
-  }, 2000);
+  }, 3000);
 }
+
 
 // =======================
 // Checkout Navigation
